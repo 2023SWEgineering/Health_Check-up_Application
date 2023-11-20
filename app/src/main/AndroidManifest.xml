@@ -23,6 +23,15 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity
+            android:name=".birthdate"
+            android:label="" />
+        <activity
+            android:name=".gender"
+            android:label="" />
+        <activity
+            android:name=".main"
+            android:label="" />
     </application>
 
 </manifest>
