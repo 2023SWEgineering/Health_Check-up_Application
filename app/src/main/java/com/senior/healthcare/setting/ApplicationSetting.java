@@ -7,7 +7,7 @@ public class ApplicationSetting {
     private static String city;
     private static String cityCode;
     private static String village;
-    private static int villageCode;
+    private static String villageCode;
     private static String lastFind;
 
     public static int getAge() {
@@ -58,11 +58,11 @@ public class ApplicationSetting {
         ApplicationSetting.village = village;
     }
 
-    public static int getVillageCode() {
+    public static String getVillageCode() {
         return villageCode;
     }
 
-    public static void setVillageCode(int villageCode) {
+    public static void setVillageCode(String villageCode) {
         ApplicationSetting.villageCode = villageCode;
     }
 

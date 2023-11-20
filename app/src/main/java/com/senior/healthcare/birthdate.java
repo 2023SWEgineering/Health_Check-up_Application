@@ -17,7 +17,6 @@ public class birthdate extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Button join;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.birthdate);
 
@@ -47,7 +46,7 @@ public class birthdate extends Activity {
             }
         });
 
-        join = (Button) findViewById(R.id.button);
+        Button join = (Button) findViewById(R.id.button);
 
         join.setOnClickListener(new View.OnClickListener() {
             @Override

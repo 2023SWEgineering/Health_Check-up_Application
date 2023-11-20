@@ -26,7 +26,7 @@ public class gender extends Activity {
             @Override
             public void onClick(View v) {
                 ApplicationSetting.setGender("남자");
-                Intent intent = new Intent(getApplicationContext(), main.class);
+                Intent intent = new Intent(getApplicationContext(), sido.class);
                 startActivity(intent);
             }
         });
@@ -37,7 +37,7 @@ public class gender extends Activity {
             @Override
             public void onClick(View v) {
                 ApplicationSetting.setGender("여자");
-                Intent intent = new Intent(getApplicationContext(), main.class);
+                Intent intent = new Intent(getApplicationContext(), sido.class);
                 startActivity(intent);
             }
         });
