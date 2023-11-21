@@ -8,7 +8,9 @@ public class ApplicationSetting {
     private static String cityCode;
     private static String village;
     private static String villageCode;
-    private static String lastFind;
+    private static String hospitalName;
+    private static String hospitalCode;
+    private static String serviceKey = "eOIFq%2FdyWqgEH46rcHoOaXBRiKvn9XwDy8I2ISFT5dBWNSPgI%2BCty58H1nxLT81K0UL2zPVwIh40FNfXlBTsRg%3D%3D";
 
     public static int getAge() {
         return age;
@@ -65,12 +67,23 @@ public class ApplicationSetting {
     public static void setVillageCode(String villageCode) {
         ApplicationSetting.villageCode = villageCode;
     }
-
-    public static String getLastFind() {
-        return lastFind;
+    public static String getServiceKey() {
+        return serviceKey;
     }
 
-    public static void setLastFind(String lastFind) {
-        ApplicationSetting.lastFind = lastFind;
+    public static void setHospitalName(String hospitalName) {
+        ApplicationSetting.hospitalName = hospitalName;
+    }
+
+    public static void setHospitalCode(String hospitalCode) {
+        ApplicationSetting.hospitalCode = hospitalCode;
+    }
+
+    public static String getHospitalName() {
+        return hospitalName;
+    }
+
+    public static String getHospitalCode() {
+        return hospitalCode;
     }
 }

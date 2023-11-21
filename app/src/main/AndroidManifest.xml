@@ -42,6 +42,12 @@
         <activity
             android:name=".checkData"
             android:label="" />
+        <activity
+            android:name=".search"
+            android:label="" />
+        <activity
+            android:name=".hospital"
+            android:label="" />
     </application>
 
 </manifest>

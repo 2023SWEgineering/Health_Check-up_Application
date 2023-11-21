@@ -23,14 +23,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class sido extends Activity {
-
-    private static final String API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/CodeService/getSiDoList?ServiceKey="+ApplicationSetting.getServiceKey()+"&numOfRows=20";
+public class search extends Activity {
+    private static final String serviceKey = ApplicationSetting.getServiceKey();
+    private static final String API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/HmcSearchService/getRegnHmcList?siDoCd=" + ApplicationSetting.getCityCode() + "&siGunGuCd=" + ApplicationSetting.getVillageCode() + "&numOfRows=300&ServiceKey=" + serviceKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sido);
+        setContentView(R.layout.search);
 
         // Thread 실행
         new Thread(new Runnable() {
@@ -40,21 +40,21 @@ public class sido extends Activity {
                     // API에 GET 요청 보내고 XML 결과 받기
                     String xmlData = getXmlFromUrl(API_URL);
 
-                    // XML 파싱하여 sidoNm, sidoCd 값 추출
-                    final List<SidoInfo> sidoList = parseXml(xmlData);
+                    // XML 파싱하여 hospitalName, hospitalCode 값 추출
+                    final List<HospitalInfo> hospitalList = parseXml(xmlData);
 
                     // UI 업데이트는 메인 쓰레드에서 수행해야 합니다.
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             // 파싱된 결과를 사용하여 버튼 동적 생성
-                            createButtons(sidoList);
+                            createButtons(hospitalList);
                         }
                     });
                 } catch (IOException | XmlPullParserException e) {
                     e.printStackTrace();
                     // 오류 처리
-                    Log.e("SidoActivity", "오류 발생");
+                    Log.e("search", "오류 발생");
                 }
             }
         }).start();
@@ -91,8 +91,8 @@ public class sido extends Activity {
         return result.toString();
     }
 
-    private List<SidoInfo> parseXml(String xmlData) throws XmlPullParserException, IOException {
-        List<SidoInfo> sidoList = new ArrayList<>();
+    private List<HospitalInfo> parseXml(String xmlData) throws XmlPullParserException, IOException {
+        List<HospitalInfo> hospitalList = new ArrayList<>();
         XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
         factory.setNamespaceAware(true);
         XmlPullParser parser = factory.newPullParser();
@@ -101,36 +101,36 @@ public class sido extends Activity {
         int eventType = parser.getEventType();
         while (eventType != XmlPullParser.END_DOCUMENT) {
             if (eventType == XmlPullParser.START_TAG && "item".equals(parser.getName())) {
-                SidoInfo sidoInfo = new SidoInfo();
+                HospitalInfo hospitalInfo = new HospitalInfo();
                 while (eventType != XmlPullParser.END_TAG || !"item".equals(parser.getName())) {
-                    if (eventType == XmlPullParser.START_TAG && "siDoNm".equals(parser.getName())) {
-                        sidoInfo.setSidoNm(parser.nextText());
-                    } else if (eventType == XmlPullParser.START_TAG && "siDoCd".equals(parser.getName())) {
-                        sidoInfo.setSidoCd(parser.nextText());
+                    if (eventType == XmlPullParser.START_TAG && "hmcNm".equals(parser.getName())) {
+                        hospitalInfo.setHospitalName(parser.nextText());
+                    } else if (eventType == XmlPullParser.START_TAG && "hmcNo".equals(parser.getName())) {
+                        hospitalInfo.setHospitalCode(parser.nextText());
                     }
                     eventType = parser.next();
                 }
-                sidoList.add(sidoInfo);
+                hospitalList.add(hospitalInfo);
             }
             eventType = parser.next();
         }
 
-        return sidoList;
+        return hospitalList;
     }
 
-    private void createButtons(List<SidoInfo> sidoList) {
-        LinearLayout layout = findViewById(R.id.sido);
+    private void createButtons(List<HospitalInfo> hospitalList) {
+        LinearLayout layout = findViewById(R.id.search);
 
-        for (final SidoInfo sidoInfo : sidoList) {
+        for (final HospitalInfo hospitalInfo : hospitalList) {
             Button button = new Button(this);
-            button.setText(sidoInfo.getSidoNm());
+            button.setText(hospitalInfo.getHospitalName());
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // 버튼을 누를 때 ApplicationSetting에 값을 저장
-                    ApplicationSetting.setCity(sidoInfo.getSidoNm());
-                    ApplicationSetting.setCityCode(sidoInfo.getSidoCd());
-                    Intent intent = new Intent(getApplicationContext(), sigungu.class);
+                    ApplicationSetting.setHospitalName(hospitalInfo.getHospitalName());
+                    ApplicationSetting.setHospitalCode(hospitalInfo.getHospitalCode());
+                    Intent intent = new Intent(getApplicationContext(), hospital.class);
                     startActivity(intent);
                     // 여기에서 필요한 추가 작업 수행
                 }
@@ -141,23 +141,24 @@ public class sido extends Activity {
     }
 }
 
-class SidoInfo {
-    private String sidoNm;
-    private String sidoCd;
+class HospitalInfo {
 
-    public String getSidoNm() {
-        return sidoNm;
+    private String hospitalName;
+    private String hospitalCode;
+
+    public String getHospitalName() {
+        return hospitalName;
     }
 
-    public void setSidoNm(String sidoNm) {
-        this.sidoNm = sidoNm;
+    public String getHospitalCode() {
+        return hospitalCode;
     }
 
-    public String getSidoCd() {
-        return sidoCd;
+    public void setHospitalName(String hospitalName) {
+        this.hospitalName = hospitalName;
     }
 
-    public void setSidoCd(String sidoCd) {
-        this.sidoCd = sidoCd;
+    public void setHospitalCode(String hospitalCode) {
+        this.hospitalCode = hospitalCode;
     }
 }

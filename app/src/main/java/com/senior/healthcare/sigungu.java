@@ -25,7 +25,7 @@ import java.util.List;
 
 public class sigungu extends Activity {
 
-    private static final String API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/CodeService/getSiGunGuList?siDoCd="+ApplicationSetting.getCityCode()+"&ServiceKey=eOIFq%2FdyWqgEH46rcHoOaXBRiKvn9XwDy8I2ISFT5dBWNSPgI%2BCty58H1nxLT81K0UL2zPVwIh40FNfXlBTsRg%3D%3D&numOfRows=50";
+    private static final String API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/CodeService/getSiGunGuList?siDoCd="+ApplicationSetting.getCityCode()+"&ServiceKey="+ApplicationSetting.getServiceKey()+"&numOfRows=50";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
