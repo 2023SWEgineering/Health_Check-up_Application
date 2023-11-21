@@ -39,6 +39,9 @@
         <activity
             android:name=".sigungu"
             android:label="" />
+        <activity
+            android:name=".checkData"
+            android:label="" />
     </application>
 
 </manifest>

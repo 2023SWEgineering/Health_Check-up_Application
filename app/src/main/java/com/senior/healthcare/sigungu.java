@@ -130,7 +130,7 @@ public class sigungu extends Activity {
                     // 버튼을 누를 때 ApplicationSetting에 값을 저장
                     ApplicationSetting.setVillage(sigunguInfo.getSigunguNm());
                     ApplicationSetting.setVillageCode(sigunguInfo.getSigunguCd());
-                    Intent intent = new Intent(getApplicationContext(), main.class);
+                    Intent intent = new Intent(getApplicationContext(), checkData.class);
                     startActivity(intent);
                     // 여기에서 필요한 추가 작업 수행
                 }

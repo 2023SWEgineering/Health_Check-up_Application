@@ -21,6 +21,7 @@ public class gender extends Activity {
         textView.setText(String.valueOf(ApplicationSetting.getAge()));
 
         Button male = findViewById(R.id.male); // yourButtonId는 버튼의 ID
+        Button female = findViewById(R.id.female); // yourButtonId는 버튼의 ID
 
         male.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,9 +32,7 @@ public class gender extends Activity {
             }
         });
 
-        Button female = findViewById(R.id.female); // yourButtonId는 버튼의 ID
-
-        male.setOnClickListener(new View.OnClickListener() {
+        female.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ApplicationSetting.setGender("여자");
