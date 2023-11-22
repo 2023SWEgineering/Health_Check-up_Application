@@ -1,10 +1,24 @@
 package com.senior.healthcare;
 
 import android.app.Activity;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.senior.healthcare.setting.ApplicationSetting;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -17,15 +31,19 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
+import java.util.Locale;
 
-public class hospital extends Activity {
+public class hospital extends AppCompatActivity implements OnMapReadyCallback {
+
+    private GoogleMap mMap;
 
     private static final String serviceKey = ApplicationSetting.getServiceKey();
     private static final String hospitalName = ApplicationSetting.getHospitalName();
     private static final String API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/HmcSearchService/getRegnHmcList?hmcNm=" + hospitalName + "&ServiceKey=" + serviceKey;
 
-    private static double cxVl;
-    private static double cyVl;
+    private static double cxVl = 0;
+    private static double cyVl = 0;
     private static String hmcTelNo;
     private static boolean bcExmdChrgTypeCd;
     private static boolean ccExmdChrgTypeCd;
@@ -39,10 +57,16 @@ public class hospital extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.hospital);
 
-        // UI 업데이트를 위한 LinearLayout 생성
-        LinearLayout linearLayout = new LinearLayout(this);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        //상단 액션바 제거
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
+        //지도
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
         // Thread 실행
         new Thread(new Runnable() {
@@ -59,11 +83,7 @@ public class hospital extends Activity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            // LinearLayout에 TextView 등을 추가하여 UI 업데이트
-                            updateUI(linearLayout);
-
-                            // 생성한 LinearLayout을 화면에 표시
-                            setContentView(linearLayout);
+                            updateUI();
                         }
                     });
                 } catch (IOException | XmlPullParserException e) {
@@ -159,21 +179,80 @@ public class hospital extends Activity {
         }
     }
 
-    private void updateUI(LinearLayout linearLayout) {
+    private void updateUI() {
         // LinearLayout에 필요한 UI 업데이트 작업 수행
         // 예를 들어, TextView 등을 생성하여 추가할 수 있습니다.
-        TextView textView = new TextView(this);
-        textView.setText("유방암: " + bcExmdChrgTypeCd +
-                "\n대장암: " + ccExmdChrgTypeCd +
-                "\n자궁경부암: " + cvxcaExmdChrgTypeCd +
-                "\n일반검진: " + grenChrgTypeCd +
-                "\n간암: " + lvcaExmdChrgTypeCd +
-                "\n구강검진: " + mchkChrgTypeCd +
-                "\n위암검진: " + stmcaExmdChrgTypeCd +
-                "\n주소: " + locAddr +
-                "\n전화번호: " + hmcTelNo +
-                "\nX좌표: " + cxVl +
-                "\nY좌표: " + cyVl);
-        linearLayout.addView(textView);
+        TextView grenChrgType = findViewById(R.id.grenChrgTypeCd);
+        if(grenChrgTypeCd) grenChrgType.setText("일반 검진 : 가능");
+        else grenChrgType.setText("일반 검진 : 불가능");
+
+        TextView mchkChrgType = findViewById(R.id.mchkChrgTypeCd);
+        if(mchkChrgTypeCd) mchkChrgType.setText("구강 검진 : 가능");
+        else mchkChrgType.setText("구강 검진 : 불가능");
+
+        TextView bcExmdChrgType = findViewById(R.id.bcExmdChrgTypeCd);
+        if(bcExmdChrgTypeCd) bcExmdChrgType.setText("유방암 검진 : 가능");
+        else bcExmdChrgType.setText("유방암 검진 : 불가능");
+
+        TextView ccExmdChrgType = findViewById(R.id.ccExmdChrgTypeCd);
+        if(ccExmdChrgTypeCd) ccExmdChrgType.setText("대장암 검진 : 가능");
+        else ccExmdChrgType.setText("대장암 검진 : 불가능");
+
+        TextView cvxcaExmdChrgType = findViewById(R.id.cvxcaExmdChrgTypeCd);
+        if(cvxcaExmdChrgTypeCd) cvxcaExmdChrgType.setText("자궁경부암 검진 : 가능");
+        else cvxcaExmdChrgType.setText("자궁경부암 검진 : 불가능");
+
+        TextView stmcaExmdChrgType = findViewById(R.id.stmcaExmdChrgTypeCd);
+        if(stmcaExmdChrgTypeCd) stmcaExmdChrgType.setText("위암 검진 : 가능");
+        else stmcaExmdChrgType.setText("위암 검진 : 불가능");
+
+        TextView lvcaExmdChrgType = findViewById(R.id.lvcaExmdChrgTypeCd);
+        if(lvcaExmdChrgTypeCd) lvcaExmdChrgType.setText("간암 검진 : 가능");
+        else lvcaExmdChrgType.setText("간암 검진 : 불가능");
+
+        TextView loc = findViewById(R.id.locAddr);
+        loc.setText("주소 : "+locAddr);
+
+        TextView tel = findViewById(R.id.hmcTelNo);
+        tel.setText("전화번호 : "+hmcTelNo);
+
+
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        mMap = googleMap;
+
+        Log.v("X좌표",String.valueOf(cxVl));
+        Log.v("Y좌표",String.valueOf(cyVl));
+
+        LatLng sydney;
+        if (cxVl == 0 && cyVl == 0){
+            sydney = performGeocoding(locAddr);
+        } else {
+            sydney = new LatLng(cxVl, cyVl);
+        }
+        mMap.addMarker(new MarkerOptions()
+                .position(sydney)
+                .title(ApplicationSetting.getHospitalName()));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+    }
+
+    private LatLng performGeocoding(String addressString) {
+        Geocoder geocoder = new Geocoder(this,Locale.getDefault());
+
+        try {
+            List<Address> addresses = geocoder.getFromLocationName(addressString, 1);
+            if (addresses != null && !addresses.isEmpty()) {
+                double latitude = addresses.get(0).getLatitude();
+                double longitude = addresses.get(0).getLongitude();
+                return new LatLng(latitude, longitude);
+            }
+        } catch (IOException e) {
+            Log.e("GeocodingActivity", "Error during geocoding", e);
+        }
+
+        return null;
     }
 }
