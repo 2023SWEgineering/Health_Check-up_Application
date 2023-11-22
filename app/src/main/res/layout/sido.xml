@@ -16,13 +16,16 @@
         android:textSize="25dp" />
 
 
-
-    <LinearLayout
-        android:id="@+id/sido"
+    <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-    </LinearLayout>
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/sido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        </LinearLayout>
+    </ScrollView>
 
 
 
