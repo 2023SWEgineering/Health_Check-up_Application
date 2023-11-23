@@ -11,11 +11,13 @@
         android:layout_height = "640dp">
 
         <ImageButton
+            android:contentDescription="checkup_list"
             android:id="@+id/checkup_list"
             android:layout_width="match_parent"
             android:layout_height="220dp"
             android:background="@drawable/main_checkup"/>
         <ImageButton
+            android:contentDescription="list_icon"
             android:id="@+id/list_icon"
             android:layout_width="80dp"
             android:layout_height="100dp"
@@ -35,6 +37,7 @@
 
 
         <ImageButton
+            android:contentDescription="search_hospital"
             android:id="@+id/search_hospital"
             android:layout_width="match_parent"
             android:layout_height="220dp"
@@ -51,6 +54,7 @@
             android:textStyle="bold"
             android:text="주변 병원\n탐색하기" />
         <ImageButton
+            android:contentDescription="hospital_icon"
             android:id="@+id/hospital_icon"
             android:layout_width="95dp"
             android:layout_height="100dp"
@@ -60,12 +64,14 @@
 
 
         <ImageButton
+            android:contentDescription="change_information"
             android:id="@+id/change_information"
             android:layout_width="match_parent"
             android:layout_height="220dp"
             android:layout_marginTop="380dp"
             android:background="@drawable/main_setting"/>
         <ImageButton
+            android:contentDescription="user_icon"
             android:id="@+id/user_icon"
             android:layout_width="130dp"
             android:layout_height="130dp"
@@ -83,4 +89,5 @@
             android:layout_marginRight="30dp"
             android:textColor="#FFFFFF"/>
     </RelativeLayout>
+
 </LinearLayout>
