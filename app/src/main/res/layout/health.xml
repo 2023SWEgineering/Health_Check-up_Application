@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/gray">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="307dp"
@@ -23,7 +22,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="주변 병원 리스트"
+            android:text="대장암 건강검진"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -34,16 +33,17 @@
     </RelativeLayout>
 
 
-    <ScrollView
+    <Button
+        android:id="@+id/button"
         android:layout_width="307dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
-        <LinearLayout
-            android:id="@+id/search"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-        </LinearLayout>
-    </ScrollView>
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/solid_button"
+        android:text="다음"
+        android:textColor="#ffff"
+        android:textSize="24dp"
+        android:textStyle="bold" />
+
 
 </LinearLayout>
