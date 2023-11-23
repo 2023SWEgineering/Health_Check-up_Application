@@ -121,9 +121,28 @@ public class search extends Activity {
     private void createButtons(List<HospitalInfo> hospitalList) {
         LinearLayout layout = findViewById(R.id.search);
 
+        // 이미지 리소스 배열
+        int[] buttonBackgrounds = {R.drawable.btn_color1, R.drawable.btn_color2, R.drawable.btn_color3,
+                R.drawable.btn_color4, R.drawable.btn_color5, R.drawable.btn_color6};
+
+        int imageIndex = 0; // 이미지 인덱스 변수
+
         for (final HospitalInfo hospitalInfo : hospitalList) {
             Button button = new Button(this);
             button.setText(hospitalInfo.getHospitalName());
+
+            // 순서대로 이미지 선택
+            button.setBackgroundResource(buttonBackgrounds[imageIndex]);
+
+            // 이미지 인덱스 업데이트
+            imageIndex = (imageIndex + 1) % buttonBackgrounds.length;
+
+            //버튼 크기 조절
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(920, 185);
+
+            params.setMargins(0, 0, 0, 40);
+            button.setLayoutParams(params);
+
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

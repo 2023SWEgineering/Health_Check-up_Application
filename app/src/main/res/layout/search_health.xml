@@ -23,7 +23,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="주변 병원 리스트"
+            android:text="나만의 건강검진 리스트"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -34,16 +34,16 @@
     </RelativeLayout>
 
 
+
     <ScrollView
         android:layout_width="307dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
         <LinearLayout
-            android:id="@+id/search"
+            android:id="@+id/search_health"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>
