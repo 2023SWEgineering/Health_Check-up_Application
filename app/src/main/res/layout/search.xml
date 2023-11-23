@@ -4,13 +4,29 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <LinearLayout
-            android:id="@+id/search"
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="주변 병원 리스트"
+            android:layout_gravity="center"
+            android:layout_margin="50dp"/>
+
+    </LinearLayout>
+
+
+
+    <ScrollView
+        android:layout_width="307dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+        <LinearLayout
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical">
         </LinearLayout>
     </ScrollView>
