@@ -19,4 +19,10 @@
         android:layout_height="wrap_content"
         android:text="주변 병원 탐색하기"/>
 
+    <Button
+        android:id="@+id/change_infor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="내 정보 수정"/>
+
 </LinearLayout>
