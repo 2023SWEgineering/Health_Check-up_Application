@@ -2,11 +2,15 @@ package com.senior.healthcare;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 
 import com.senior.healthcare.setting.ApplicationSetting;
 
@@ -119,11 +123,34 @@ public class sigungu extends Activity {
     }
 
     private void createButtons(List<SigunguInfo> sigunguList) {
-        LinearLayout layout = findViewById(R.id.sigungu);
+        TableLayout layout = findViewById(R.id.sigungu);
+
+        // TableRow를 동적으로 생성하여 TableLayout에 추가
+        TableRow tableRow = new TableRow(this);
+        layout.addView(tableRow);
+
+        int buttonCount = 0;
 
         for (final SigunguInfo sigunguInfo : sigunguList) {
             Button button = new Button(this);
-            button.setText(sigunguInfo.getSigunguNm());
+
+            String btnText = sigunguInfo.getSigunguNm();
+
+            button.setText(btnText);
+
+            if (btnText.length() > 8) {
+                button.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button2_text_size));
+            }
+
+            else if (btnText.length() > 5) {
+                button.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+            }
+
+            button.setTypeface(null, Typeface.BOLD);
+
+            TableRow.LayoutParams params = new TableRow.LayoutParams(306, 170);
+
+            button.setLayoutParams(params);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -136,7 +163,16 @@ public class sigungu extends Activity {
                 }
             });
 
-            layout.addView(button);
+            tableRow.addView(button);  // TableRow에 버튼 추가
+            buttonCount++;
+
+            // 한 TableRow에 3개의 버튼이 들어가면 새로운 TableRow 생성
+            if (buttonCount == 3) {
+                tableRow = new TableRow(this);
+                layout.addView(tableRow);
+                buttonCount = 0;  // 버튼 개수 초기화
+            }
+
         }
     }
 }
