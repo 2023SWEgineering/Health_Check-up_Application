@@ -36,8 +36,9 @@
         android:text="여자"
         android:textStyle="bold"
         android:textSize="25dp"
-        android:background="@drawable/corners_button"
-        android:elevation="20dp" />
+        android:background="@drawable/button_back_background"
+        android:elevation="20dp"
+        android:onClick="onButtonClick" />
 
     <Button
         android:id="@+id/male"
@@ -48,8 +49,9 @@
         android:text="남자"
         android:textStyle="bold"
         android:textSize="25dp"
-        android:background="@drawable/corners_button"
-        android:elevation="20dp" />
+        android:background="@drawable/button_back_background"
+        android:elevation="20dp"
+        android:onClick="onButtonClick" />
 
     <Button
         android:id="@+id/button"

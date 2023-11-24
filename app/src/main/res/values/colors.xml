@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#F5F5F5</color>
+    <color name="button_press_back">#FFF0F0</color>
+    <color name="button_press_stoke">#FE6347</color>
 </resources>

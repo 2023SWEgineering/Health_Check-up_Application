@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.senior.healthcare.setting.ApplicationSetting;
@@ -31,6 +32,16 @@ public class search extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search);
+
+        ImageView back_icon = findViewById(R.id.back_icon);
+
+        back_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), main.class);
+                startActivity(intent);
+            }
+        });
 
         // Thread 실행
         new Thread(new Runnable() {

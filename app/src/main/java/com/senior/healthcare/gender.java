@@ -16,19 +16,16 @@ public class gender extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gender);
 
-        //TextView textView = findViewById(R.id.textView);
-        //textView.setText(String.valueOf(ApplicationSetting.getAge()));
-
-        Button male = findViewById(R.id.male); // yourButtonId는 버튼의 ID
-        Button female = findViewById(R.id.female); // yourButtonId는 버튼의 ID
+        Button male = findViewById(R.id.male);
+        Button female = findViewById(R.id.female);
         Button button = findViewById(R.id.button);
 
         male.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ApplicationSetting.setGender("남자");
-                //Intent intent = new Intent(getApplicationContext(), firstcheckData.class);
-                //startActivity(intent);
+                male.setSelected(true);
+                female.setSelected(false);
             }
         });
 
@@ -36,8 +33,8 @@ public class gender extends Activity {
             @Override
             public void onClick(View v) {
                 ApplicationSetting.setGender("여자");
-                //Intent intent = new Intent(getApplicationContext(), checkData.class);
-                //startActivity(intent);
+                male.setSelected(false);
+                female.setSelected(true);
             }
         });
 
