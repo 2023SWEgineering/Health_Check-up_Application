@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_color">
+    android:background="@color/main_color"
+    android:orientation="vertical"
+    android:gravity="center">
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
         <ImageView
             android:layout_width="157dp"
             android:layout_height="157dp"
@@ -14,10 +18,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
             android:text="나만의 맞춤 건강검진"
             android:textColor="@color/white"
+            android:textSize="25sp"
             android:textStyle="bold"/>
 
     </LinearLayout>
 
-</LinearLayout>
+
+
+</RelativeLayout>
