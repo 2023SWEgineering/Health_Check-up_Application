@@ -3,7 +3,7 @@
     <item android:state_selected="true">
         <shape>
             <solid android:color="@color/button_press_back" />
-            <stroke android:width="4dp" android:color="@color/main_color" />
+            <stroke android:width="2dp" android:color="@color/main_color" />
             <corners android:radius="20dp" />
         </shape>
     </item>

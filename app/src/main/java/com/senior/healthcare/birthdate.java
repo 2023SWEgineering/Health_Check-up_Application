@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -25,9 +26,22 @@ public class birthdate extends Activity {
 
         //year
         Integer[] year = new Integer[104];
-        for(int i = 0 ; i < 104 ; i++) year[i] = i+1900;
+        for(int i = 0 ; i < 104 ; i++) year[i] = 2003 - i;
 
-        ArrayAdapter<Integer> yearAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, year);
+        ArrayAdapter<Integer> yearAdapter = new ArrayAdapter<Integer>(this, R.layout.spinner_item_layout, year) {
+            @Override
+            public View getView(int position, View converView, ViewGroup parent) {
+                View view = super.getView(position, converView, parent);
+                return view;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                // 드롭다운 리스트에서도 동일한 레이아웃을 사용
+                View view = super.getDropDownView(position, convertView, parent);
+                return view;
+            }
+        };
         yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner yearSpinner = findViewById(R.id.spinner_year);
         yearSpinner.setAdapter(yearAdapter);
