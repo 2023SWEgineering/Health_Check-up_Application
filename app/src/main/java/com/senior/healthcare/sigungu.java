@@ -62,6 +62,16 @@ public class sigungu extends Activity {
                 }
             }
         }).start();
+
+        Button sigungu_button = findViewById(R.id.sigungu_button);
+
+        sigungu_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), checkData.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private String getXmlFromUrl(String urlString) throws IOException {
@@ -134,15 +144,13 @@ public class sigungu extends Activity {
         for (final SigunguInfo sigunguInfo : sigunguList) {
             Button button = new Button(this);
 
+            button.setBackgroundResource(R.drawable.sido_sigungu_button);
+
             String btnText = sigunguInfo.getSigunguNm();
 
             button.setText(btnText);
 
             if (btnText.length() > 8) {
-                button.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button2_text_size));
-            }
-
-            else if (btnText.length() > 5) {
                 button.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
             }
 
@@ -150,16 +158,25 @@ public class sigungu extends Activity {
 
             TableRow.LayoutParams params = new TableRow.LayoutParams(306, 170);
 
+            params.setMargins(10, 10, 10, 10);
+
             button.setLayoutParams(params);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // 버튼을 누를 때 ApplicationSetting에 값을 저장
+                    for (int i=0; i<layout.getChildCount(); i++) {
+                        TableRow row = (TableRow) layout.getChildAt(i);
+                        for (int j=0; j<row.getChildCount(); j++) {
+                            View child = row.getChildAt(j);
+                            if (child instanceof Button) {
+                                child.setSelected(false);
+                            }
+                        }
+                    }
+                    button.setSelected(true);
                     ApplicationSetting.setVillage(sigunguInfo.getSigunguNm());
                     ApplicationSetting.setVillageCode(sigunguInfo.getSigunguCd());
-                    Intent intent = new Intent(getApplicationContext(), checkData.class);
-                    startActivity(intent);
-                    // 여기에서 필요한 추가 작업 수행
+                    // 버튼을 누를 때 ApplicationSetting에 값을 저장
                 }
             });
 

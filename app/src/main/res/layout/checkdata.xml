@@ -33,20 +33,18 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="52dp"
-        android:src="@drawable/check_line">
-    </ImageView>
+        android:src="@drawable/check_line"></ImageView>
 
     <TextView
         android:id="@+id/age_gender_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="85dp"
         android:layout_gravity="center"
+        android:layout_marginTop="82dp"
         android:text="성별, 나이"
         android:textColor="@color/black"
         android:textSize="25dp"
-        android:textStyle="bold">
-    </TextView>
+        android:textStyle="bold"></TextView>
 
     <TextView
         android:id="@+id/region_check"
@@ -57,22 +55,19 @@
         android:text="지역"
         android:textColor="@color/black"
         android:textSize="25dp"
-        android:textStyle="bold">
-    </TextView>
+        android:textStyle="bold"></TextView>
 
     <ImageView
         android:layout_width="307dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="85dp"
-        android:src="@drawable/check_line">
-    </ImageView>
+        android:layout_marginTop="82dp"
+        android:src="@drawable/check_line"></ImageView>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="52dp">
+        android:layout_height="52dp"
+        android:layout_marginTop="50dp">
 
         <Button
             android:id="@+id/no"
@@ -80,9 +75,9 @@
             android:layout_height="47dp"
             android:layout_gravity="center"
             android:layout_marginLeft="27dp"
-            android:background="@drawable/solid_button"
+            android:background="@drawable/return_button"
             android:text="다시 선택"
-            android:textColor="#ffff"
+            android:textColor="@color/main_color"
             android:textSize="24dp"
             android:textStyle="bold" />
 
@@ -98,7 +93,6 @@
             android:textSize="24dp"
             android:textStyle="bold" />
     </LinearLayout>
-
 
 
 </LinearLayout>

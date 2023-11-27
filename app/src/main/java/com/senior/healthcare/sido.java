@@ -61,6 +61,16 @@ public class sido extends Activity {
                 }
             }
         }).start();
+
+        Button sido_button = findViewById(R.id.sido_button);
+
+        sido_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), sigungu.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private String getXmlFromUrl(String urlString) throws IOException {
@@ -134,17 +144,17 @@ public class sido extends Activity {
             // 버튼을 생성하여 TableRow에 추가
             Button button = new Button(this);
 
+            button.setBackgroundResource(R.drawable.sido_sigungu_button);
+
             String btnText = sidoInfo.getSidoNm();
 
             button.setText(btnText);
 
-            if (btnText.length() > 5) {
-                button.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
-            }
-
             button.setTypeface(null, Typeface.BOLD);
 
             TableRow.LayoutParams params = new TableRow.LayoutParams(306, 170);
+
+            params.setMargins(10, 10, 10, 10);
 
             button.setLayoutParams(params);
 
@@ -152,11 +162,18 @@ public class sido extends Activity {
                 @Override
                 public void onClick(View view) {
                     // 버튼을 누를 때 ApplicationSetting에 값을 저장
+                    for (int i=0; i<layout.getChildCount(); i++) {
+                        TableRow row = (TableRow) layout.getChildAt(i);
+                        for (int j=0; j<row.getChildCount(); j++) {
+                            View child = row.getChildAt(j);
+                            if (child instanceof Button) {
+                                child.setSelected(false);
+                            }
+                        }
+                    }
+                    button.setSelected(true);
                     ApplicationSetting.setCity(sidoInfo.getSidoNm());
                     ApplicationSetting.setCityCode(sidoInfo.getSidoCd());
-                    Intent intent = new Intent(getApplicationContext(), sigungu.class);
-                    startActivity(intent);
-                    // 여기에서 필요한 추가 작업 수행
                 }
             });
 
@@ -171,6 +188,7 @@ public class sido extends Activity {
             }
         }
     }
+
 }
 
 class SidoInfo {
