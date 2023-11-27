@@ -130,40 +130,44 @@ public class search extends Activity {
     }
 
     private void createButtons(List<HospitalInfo> hospitalList) {
+        // 레이아웃을 찾아서 layout 변수에 할당
         LinearLayout layout = findViewById(R.id.search);
+        Hospital hospital = new Hospital();
 
-        // 이미지 리소스 배열
+        // 버튼에 사용될 배경 이미지 리소스 배열
         int[] buttonBackgrounds = {R.drawable.btn_color1, R.drawable.btn_color2, R.drawable.btn_color3,
                 R.drawable.btn_color4, R.drawable.btn_color5, R.drawable.btn_color6};
 
-        int imageIndex = 0; // 이미지 인덱스 변수
+        // 이미지 인덱스 변수 초기화
+        int imageIndex = 0;
 
+        // 병원 리스트를 순회하며 버튼 생성
         for (final HospitalInfo hospitalInfo : hospitalList) {
             Button button = new Button(this);
             button.setText(hospitalInfo.getHospitalName());
 
-            // 순서대로 이미지 선택
+            // 순환하면서 각 버튼에 배경 이미지 리소스 설정
             button.setBackgroundResource(buttonBackgrounds[imageIndex]);
 
-            // 이미지 인덱스 업데이트
+            // 이미지 인덱스 업데이트하여 다음 순서의 이미지 선택
             imageIndex = (imageIndex + 1) % buttonBackgrounds.length;
 
-            //버튼 크기 조절
+            // 버튼의 크기와 여백 조절하는 LayoutParams 생성
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(920, 185);
 
+            // 버튼 간 아래쪽 여백 설정
             params.setMargins(0, 0, 0, 40);
+
+            // 버튼에 LayoutParams 적용
             button.setLayoutParams(params);
 
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // 버튼을 누를 때 ApplicationSetting에 값을 저장
-                    ApplicationSetting.setHospitalName(hospitalInfo.getHospitalName());
-                    ApplicationSetting.setHospitalCode(hospitalInfo.getHospitalCode());
-                    Intent intent = new Intent(getApplicationContext(), hospital.class);
-                    startActivity(intent);
-                    // 여기에서 필요한 추가 작업 수행
-                }
+            // 각 버튼에 클릭 리스너 추가
+            button.setOnClickListener(view -> {
+                ApplicationSetting.setHospitalName(hospitalInfo.getHospitalName());
+                ApplicationSetting.setHospitalCode(hospitalInfo.getHospitalCode());
+
+                Intent intent = new Intent(getApplicationContext(), Hospital.class); // 변경된 클래스명으로 수정
+                startActivity(intent);
             });
 
             layout.addView(button);

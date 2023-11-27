@@ -51,7 +51,7 @@
             android:name=".search"
             android:label="" />
         <activity
-            android:name=".hospital"
+            android:name=".Hospital"
             android:label="" />
     </application>
 
