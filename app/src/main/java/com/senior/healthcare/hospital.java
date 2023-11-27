@@ -1,11 +1,14 @@
 package com.senior.healthcare;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -62,11 +65,22 @@ public class hospital extends AppCompatActivity implements OnMapReadyCallback {
         //상단 액션바 제거
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+        ImageView back_icon = findViewById(R.id.back_icon);
+
+
 
         //지도
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        back_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), search.class);
+                startActivity(intent);
+            }
+        });
 
         // Thread 실행
         new Thread(new Runnable() {
@@ -211,10 +225,10 @@ public class hospital extends AppCompatActivity implements OnMapReadyCallback {
         else lvcaExmdChrgType.setText("간암 검진 : 불가능");
 
         TextView loc = findViewById(R.id.locAddr);
-        loc.setText("주소 : "+locAddr);
+        loc.setText(locAddr);
 
         TextView tel = findViewById(R.id.hmcTelNo);
-        tel.setText("전화번호 : "+hmcTelNo);
+        tel.setText(hmcTelNo);
 
 
     }
