@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -33,7 +36,10 @@ public class sido extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sido);
+        setContentView(R.layout.loading);  // 로딩 화면을 먼저 표시
+
+        // 로딩 이미지 회전 애니메이션 적용
+        applyRotationAnimation();
 
         // Thread 실행
         new Thread(new Runnable() {
@@ -50,6 +56,9 @@ public class sido extends Activity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            // 로딩 화면 감추기
+                            findViewById(R.id.loadingLayout).setVisibility(View.GONE);
+
                             // 파싱된 결과를 사용하여 버튼 동적 생성
                             createButtons(sidoList);
                         }
@@ -62,6 +71,15 @@ public class sido extends Activity {
             }
         }).start();
     }
+
+    private void applyRotationAnimation() {
+        ImageView loadingImageView = findViewById(R.id.loadingImageView);
+        RotateAnimation rotateAnimation = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        rotateAnimation.setDuration(1000);  // 회전 애니메이션의 지속 시간 (밀리초)
+        rotateAnimation.setRepeatCount(Animation.INFINITE);  // 무한 반복
+        loadingImageView.startAnimation(rotateAnimation);
+    }
+
 
     private String getXmlFromUrl(String urlString) throws IOException {
         StringBuilder result = new StringBuilder();
