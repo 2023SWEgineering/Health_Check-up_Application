@@ -10,10 +10,10 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
 
         //라우팅
-        Intent intent = new Intent(getApplicationContext(), birthdate.class);
+        Intent intent = new Intent(getApplicationContext(), enterScreen.class);
         startActivity(intent);
     }
 }
