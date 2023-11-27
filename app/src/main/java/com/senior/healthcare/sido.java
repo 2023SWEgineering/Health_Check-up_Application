@@ -11,6 +11,7 @@ import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -36,7 +37,8 @@ public class sido extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.loading);  // 로딩 화면을 먼저 표시
+        setContentView(R.layout.sido);
+        LinearLayout loadingLayout = findViewById(R.id.loadingLayout);
 
         // 로딩 이미지 회전 애니메이션 적용
         applyRotationAnimation();
@@ -56,9 +58,7 @@ public class sido extends Activity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            // 로딩 화면 감추기
-                            findViewById(R.id.loadingLayout).setVisibility(View.GONE);
-
+                            loadingLayout.setVisibility(View.GONE);
                             // 파싱된 결과를 사용하여 버튼 동적 생성
                             createButtons(sidoList);
                         }
@@ -79,7 +79,6 @@ public class sido extends Activity {
         rotateAnimation.setRepeatCount(Animation.INFINITE);  // 무한 반복
         loadingImageView.startAnimation(rotateAnimation);
     }
-
 
     private String getXmlFromUrl(String urlString) throws IOException {
         StringBuilder result = new StringBuilder();
