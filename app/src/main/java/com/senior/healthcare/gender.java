@@ -1,10 +1,13 @@
 package com.senior.healthcare;
 
+import static android.widget.Toast.makeText;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.senior.healthcare.setting.ApplicationSetting;
 
@@ -41,8 +44,13 @@ public class gender extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), sido.class);
-                startActivity(intent);
+                if (ApplicationSetting.getGender() == null) {
+                    Toast.makeText(getApplicationContext(),"성별을 선택해주세요", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Intent intent = new Intent(getApplicationContext(), sido.class);
+                    startActivity(intent);
+                }
             }
         });
     }

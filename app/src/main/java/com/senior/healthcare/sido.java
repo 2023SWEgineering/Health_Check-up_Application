@@ -132,6 +132,7 @@ public class sido extends Activity {
 
         for (final SidoInfo sidoInfo : sidoList) {
             // 버튼을 생성하여 TableRow에 추가
+            if (sidoInfo.getSidoNm().equals("황해도")) continue;
             Button button = new Button(this);
 
             String btnText = sidoInfo.getSidoNm();
@@ -154,8 +155,15 @@ public class sido extends Activity {
                     // 버튼을 누를 때 ApplicationSetting에 값을 저장
                     ApplicationSetting.setCity(sidoInfo.getSidoNm());
                     ApplicationSetting.setCityCode(sidoInfo.getSidoCd());
-                    Intent intent = new Intent(getApplicationContext(), sigungu.class);
-                    startActivity(intent);
+                    if(sidoInfo.getSidoNm().equals("세종특별자치시")) {
+                        Intent intent = new Intent(getApplicationContext(), checkData.class);
+                        ApplicationSetting.setVillageCode("110");
+                        ApplicationSetting.setVillage("");
+                        startActivity(intent);
+                    } else{
+                        Intent intent = new Intent(getApplicationContext(), sigungu.class);
+                        startActivity(intent);
+                    }
                     // 여기에서 필요한 추가 작업 수행
                 }
             });
