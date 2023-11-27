@@ -27,6 +27,9 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".enterScreen"
+            android:label="" />
+        <activity
             android:name=".birthdate"
             android:label="" />
         <activity
