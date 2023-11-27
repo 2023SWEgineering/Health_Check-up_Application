@@ -61,16 +61,6 @@ public class sido extends Activity {
                 }
             }
         }).start();
-
-        Button sido_button = findViewById(R.id.sido_button);
-
-        sido_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), sigungu.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private String getXmlFromUrl(String urlString) throws IOException {
@@ -144,6 +134,7 @@ public class sido extends Activity {
             // 버튼을 생성하여 TableRow에 추가
             if (sidoInfo.getSidoNm().equals("황해도")) continue;
             Button button = new Button(this);
+            Button sido_button = findViewById(R.id.sido_button);
 
             button.setBackgroundResource(R.drawable.sido_sigungu_button);
 
@@ -176,16 +167,22 @@ public class sido extends Activity {
                     ApplicationSetting.setCity(sidoInfo.getSidoNm());
                     ApplicationSetting.setCityCode(sidoInfo.getSidoCd());
 
-                    if(sidoInfo.getSidoNm().equals("세종특별자치시")) {
-                        Intent intent = new Intent(getApplicationContext(), checkData.class);
-                        ApplicationSetting.setVillageCode("110");
-                        ApplicationSetting.setVillage("");
-                        startActivity(intent);
-                    } else{
-                        Intent intent = new Intent(getApplicationContext(), sigungu.class);
-                        startActivity(intent);
-                    }
-                    // 여기에서 필요한 추가 작업 수행
+                    sido_button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(sidoInfo.getSidoNm().equals("세종특별자치시")) {
+                                Intent intent = new Intent(getApplicationContext(), checkData.class);
+                                ApplicationSetting.setVillageCode("110");
+                                ApplicationSetting.setVillage("");
+                                startActivity(intent);
+                            }
+                            else {
+                                Intent intent = new Intent(getApplicationContext(), sigungu.class);
+                                startActivity(intent);
+                            }
+
+                        }
+                    });
 
                 }
             });
