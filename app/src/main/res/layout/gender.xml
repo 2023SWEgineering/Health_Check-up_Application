@@ -28,12 +28,12 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/female"
+        android:id="@+id/male"
         android:layout_width="307dp"
         android:layout_height="140dp"
         android:layout_marginTop="24dp"
         android:layout_gravity="center"
-        android:text="여자"
+        android:text="남자"
         android:textStyle="bold"
         android:textSize="25dp"
         android:background="@drawable/button_back_background"
@@ -41,12 +41,12 @@
         android:onClick="onButtonClick" />
 
     <Button
-        android:id="@+id/male"
+        android:id="@+id/female"
         android:layout_width="307dp"
         android:layout_height="140dp"
         android:layout_marginTop="24dp"
         android:layout_gravity="center"
-        android:text="남자"
+        android:text="여자"
         android:textStyle="bold"
         android:textSize="25dp"
         android:background="@drawable/button_back_background"
