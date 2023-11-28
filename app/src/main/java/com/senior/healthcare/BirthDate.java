@@ -13,7 +13,7 @@ import android.widget.Spinner;
 import com.senior.healthcare.setting.ApplicationSetting;
 
 
-public class birthdate extends Activity {
+public class BirthDate extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class birthdate extends Activity {
         join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),gender.class);
+                Intent intent = new Intent(getApplicationContext(), Gender.class);
                 startActivity(intent);
             }
         });

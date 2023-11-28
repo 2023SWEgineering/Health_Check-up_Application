@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -30,7 +29,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class sido extends Activity {
+public class SiDo extends Activity {
 
     private static final String API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/CodeService/getSiDoList?ServiceKey="+ApplicationSetting.getServiceKey()+"&numOfRows=20";
 
@@ -188,13 +187,13 @@ public class sido extends Activity {
                         @Override
                         public void onClick(View v) {
                             if(sidoInfo.getSidoNm().equals("세종특별자치시")) {
-                                Intent intent = new Intent(getApplicationContext(), checkData.class);
+                                Intent intent = new Intent(getApplicationContext(), CheckData.class);
                                 ApplicationSetting.setVillageCode("110");
                                 ApplicationSetting.setVillage("");
                                 startActivity(intent);
                             }
                             else {
-                                Intent intent = new Intent(getApplicationContext(), sigungu.class);
+                                Intent intent = new Intent(getApplicationContext(), SiGunGu.class);
                                 startActivity(intent);
                             }
 

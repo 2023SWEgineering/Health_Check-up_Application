@@ -13,7 +13,7 @@ public class MainActivity extends Activity {
         //setContentView(R.layout.activity_main);
 
         //라우팅
-        Intent intent = new Intent(getApplicationContext(), enterScreen.class);
+        Intent intent = new Intent(getApplicationContext(), EnterScreen.class);
         startActivity(intent);
     }
 }

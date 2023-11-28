@@ -30,7 +30,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class sigungu extends Activity {
+public class SiGunGu extends Activity {
 
     private static final String API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/CodeService/getSiGunGuList?siDoCd="+ApplicationSetting.getCityCode()+"&ServiceKey="+ApplicationSetting.getServiceKey()+"&numOfRows=50";
 
@@ -76,7 +76,7 @@ public class sigungu extends Activity {
         sigungu_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), checkData.class);
+                Intent intent = new Intent(getApplicationContext(), CheckData.class);
                 startActivity(intent);
             }
         });

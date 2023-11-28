@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.senior.healthcare.setting.ApplicationSetting;
 
-public class gender extends Activity {
+public class Gender extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +48,7 @@ public class gender extends Activity {
                     Toast.makeText(getApplicationContext(),"성별을 선택해주세요", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Intent intent = new Intent(getApplicationContext(), sido.class);
+                    Intent intent = new Intent(getApplicationContext(), SiDo.class);
                     startActivity(intent);
                 }
             }

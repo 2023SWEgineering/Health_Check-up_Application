@@ -27,31 +27,31 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".enterScreen"
+            android:name=".EnterScreen"
             android:label="" />
         <activity
-            android:name=".birthdate"
+            android:name=".BirthDate"
             android:label="" />
         <activity
-            android:name=".gender"
+            android:name=".Gender"
             android:label="" />
         <activity
-            android:name=".main"
+            android:name=".Main"
             android:label="" />
         <activity
-            android:name=".sido"
+            android:name=".SiDo"
             android:label="" />
         <activity
-            android:name=".sigungu"
+            android:name=".SiGunGu"
             android:label="" />
         <activity
-            android:name=".checkData"
+            android:name=".CheckData"
             android:label="" />
         <activity
-            android:name=".search"
+            android:name=".Search"
             android:label="" />
         <activity
-            android:name=".hospital"
+            android:name=".Hospital"
             android:label="" />
     </application>
 

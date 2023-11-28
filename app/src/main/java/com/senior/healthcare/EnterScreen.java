@@ -8,7 +8,7 @@ import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 
-public class enterScreen extends Activity {
+public class EnterScreen extends Activity {
     private static final long SPLASH_TIME_OUT = 1000; // 1초
 
     @Override
@@ -22,7 +22,7 @@ public class enterScreen extends Activity {
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent mainIntent = new Intent(getApplicationContext(), birthdate.class);
+                Intent mainIntent = new Intent(getApplicationContext(), BirthDate.class);
                 startActivity(mainIntent);
                 finish();
             }

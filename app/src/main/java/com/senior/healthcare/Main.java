@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.senior.healthcare.setting.ApplicationSetting;
-
-public class main extends Activity {
+public class Main extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -27,7 +25,7 @@ public class main extends Activity {
         checkup_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), main.class); // main.class 건강검진 리스트 창으로 연동해야함
+                Intent intent = new Intent(getApplicationContext(), Main.class); // main.class 건강검진 리스트 창으로 연동해야함
                 startActivity(intent);
             }
         });
@@ -36,7 +34,7 @@ public class main extends Activity {
         list_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), main.class); // main.class 건강검진 리스트 창으로 연동해야함
+                Intent intent = new Intent(getApplicationContext(), Main.class); // main.class 건강검진 리스트 창으로 연동해야함
                 startActivity(intent);
             }
         });
@@ -46,7 +44,7 @@ public class main extends Activity {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), search.class);
+                Intent intent = new Intent(getApplicationContext(), Search.class);
                 startActivity(intent);
             }
         });
@@ -55,7 +53,7 @@ public class main extends Activity {
         hospital_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), search.class);
+                Intent intent = new Intent(getApplicationContext(), Search.class);
                 startActivity(intent);
             }
         });
@@ -64,7 +62,7 @@ public class main extends Activity {
         change_information.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), birthdate.class);
+                Intent intent = new Intent(getApplicationContext(), BirthDate.class);
                 startActivity(intent);
             }
         });
@@ -73,7 +71,7 @@ public class main extends Activity {
         user_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), birthdate.class);
+                Intent intent = new Intent(getApplicationContext(), BirthDate.class);
                 startActivity(intent);
             }
         });

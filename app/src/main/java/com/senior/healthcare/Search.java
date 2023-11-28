@@ -26,7 +26,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class search extends Activity {
+public class Search extends Activity {
     private static final String serviceKey = ApplicationSetting.getServiceKey();
     private static final String API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/HmcSearchService/getRegnHmcList?siDoCd=" + ApplicationSetting.getCityCode() + "&siGunGuCd=" + ApplicationSetting.getVillageCode() + "&numOfRows=300&ServiceKey=" + serviceKey;
 
@@ -44,7 +44,7 @@ public class search extends Activity {
         back_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), main.class);
+                Intent intent = new Intent(getApplicationContext(), Main.class);
                 startActivity(intent);
             }
         });
@@ -169,16 +169,12 @@ public class search extends Activity {
             params.setMargins(0, 0, 0, 40);
             button.setLayoutParams(params);
 
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // 버튼을 누를 때 ApplicationSetting에 값을 저장
-                    ApplicationSetting.setHospitalName(hospitalInfo.getHospitalName());
-                    ApplicationSetting.setHospitalCode(hospitalInfo.getHospitalCode());
-                    Intent intent = new Intent(getApplicationContext(), hospital.class);
-                    startActivity(intent);
-                    // 여기에서 필요한 추가 작업 수행
-                }
+            button.setOnClickListener(view -> {
+                ApplicationSetting.setHospitalName(hospitalInfo.getHospitalName());
+                ApplicationSetting.setHospitalCode(hospitalInfo.getHospitalCode());
+
+                Intent intent = new Intent(getApplicationContext(), Hospital.class); // 변경된 클래스명으로 수정
+                startActivity(intent);
             });
 
             layout.addView(button);

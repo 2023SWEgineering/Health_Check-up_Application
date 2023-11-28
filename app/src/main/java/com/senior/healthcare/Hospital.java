@@ -1,6 +1,5 @@
 package com.senior.healthcare;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -9,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,27 +35,26 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
-import java.util.Locale;
 
-public class hospital extends AppCompatActivity implements OnMapReadyCallback {
+public class Hospital extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
-    private static final String serviceKey = ApplicationSetting.getServiceKey();
-    private static final String hospitalName = ApplicationSetting.getHospitalName();
-    private static final String API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/HmcSearchService/getRegnHmcList?hmcNm=" + hospitalName + "&ServiceKey=" + serviceKey;
+    private String serviceKey = ApplicationSetting.getServiceKey();
+    private String hospitalName = ApplicationSetting.getHospitalName();
+    private String API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/HmcSearchService/getRegnHmcList?hmcNm=" + hospitalName + "&ServiceKey=" + serviceKey;
 
-    private static double cxVl = 0;
-    private static double cyVl = 0;
-    private static String hmcTelNo;
-    private static boolean bcExmdChrgTypeCd;
-    private static boolean ccExmdChrgTypeCd;
-    private static boolean cvxcaExmdChrgTypeCd;
-    private static boolean grenChrgTypeCd;
-    private static boolean lvcaExmdChrgTypeCd;
-    private static boolean mchkChrgTypeCd;
-    private static boolean stmcaExmdChrgTypeCd;
-    private static String locAddr;
+    private double cxVl = 0;
+    private double cyVl = 0;
+    private String hmcTelNo;
+    private boolean bcExmdChrgTypeCd;
+    private boolean ccExmdChrgTypeCd;
+    private boolean cvxcaExmdChrgTypeCd;
+    private boolean grenChrgTypeCd;
+    private boolean lvcaExmdChrgTypeCd;
+    private boolean mchkChrgTypeCd;
+    private boolean stmcaExmdChrgTypeCd;
+    private String locAddr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +79,7 @@ public class hospital extends AppCompatActivity implements OnMapReadyCallback {
         back_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), search.class);
+                Intent intent = new Intent(getApplicationContext(), Search.class);
                 startActivity(intent);
             }
         });
