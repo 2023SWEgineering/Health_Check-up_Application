@@ -7,6 +7,8 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -61,6 +63,10 @@ public class hospital extends AppCompatActivity implements OnMapReadyCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hospital);
+        LinearLayout loadingLayout = findViewById(R.id.loadingLayout);
+
+        // 로딩 이미지 회전 애니메이션 적용
+        applyRotationAnimation();
 
         //상단 액션바 제거
         ActionBar actionBar = getSupportActionBar();
@@ -96,6 +102,7 @@ public class hospital extends AppCompatActivity implements OnMapReadyCallback {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            loadingLayout.setVisibility(View.GONE);
                             updateUI();
                         }
                     });
@@ -105,6 +112,14 @@ public class hospital extends AppCompatActivity implements OnMapReadyCallback {
                 }
             }
         }).start();
+    }
+
+    private void applyRotationAnimation() {
+        ImageView loadingImageView = findViewById(R.id.loadingImageView);
+        RotateAnimation rotateAnimation = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        rotateAnimation.setDuration(1000);  // 회전 애니메이션의 지속 시간 (밀리초)
+        rotateAnimation.setRepeatCount(Animation.INFINITE);  // 무한 반복
+        loadingImageView.startAnimation(rotateAnimation);
     }
 
     private String getXmlFromUrl(String urlString) throws IOException {
