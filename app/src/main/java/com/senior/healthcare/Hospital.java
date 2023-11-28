@@ -6,6 +6,9 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -58,12 +61,15 @@ public class Hospital extends AppCompatActivity implements OnMapReadyCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hospital);
+        LinearLayout loadingLayout = findViewById(R.id.loadingLayout);
+
+        // 로딩 이미지 회전 애니메이션 적용
+        applyRotationAnimation();
 
         //상단 액션바 제거
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         ImageView back_icon = findViewById(R.id.back_icon);
-
 
 
         //지도
@@ -94,6 +100,7 @@ public class Hospital extends AppCompatActivity implements OnMapReadyCallback {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            loadingLayout.setVisibility(View.GONE);
                             updateUI();
                         }
                     });
@@ -103,6 +110,14 @@ public class Hospital extends AppCompatActivity implements OnMapReadyCallback {
                 }
             }
         }).start();
+    }
+
+    private void applyRotationAnimation() {
+        ImageView loadingImageView = findViewById(R.id.loadingImageView);
+        RotateAnimation rotateAnimation = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        rotateAnimation.setDuration(1000);  // 회전 애니메이션의 지속 시간 (밀리초)
+        rotateAnimation.setRepeatCount(Animation.INFINITE);  // 무한 반복
+        loadingImageView.startAnimation(rotateAnimation);
     }
 
     private String getXmlFromUrl(String urlString) throws IOException {
@@ -194,31 +209,31 @@ public class Hospital extends AppCompatActivity implements OnMapReadyCallback {
         // LinearLayout에 필요한 UI 업데이트 작업 수행
         // 예를 들어, TextView 등을 생성하여 추가할 수 있습니다.
         TextView grenChrgType = findViewById(R.id.grenChrgTypeCd);
-        if(grenChrgTypeCd) grenChrgType.setText("일반 검진 : 가능");
+        if (grenChrgTypeCd) grenChrgType.setText("일반 검진 : 가능");
         else grenChrgType.setText("일반 검진 : 불가능");
 
         TextView mchkChrgType = findViewById(R.id.mchkChrgTypeCd);
-        if(mchkChrgTypeCd) mchkChrgType.setText("구강 검진 : 가능");
+        if (mchkChrgTypeCd) mchkChrgType.setText("구강 검진 : 가능");
         else mchkChrgType.setText("구강 검진 : 불가능");
 
         TextView bcExmdChrgType = findViewById(R.id.bcExmdChrgTypeCd);
-        if(bcExmdChrgTypeCd) bcExmdChrgType.setText("유방암 검진 : 가능");
+        if (bcExmdChrgTypeCd) bcExmdChrgType.setText("유방암 검진 : 가능");
         else bcExmdChrgType.setText("유방암 검진 : 불가능");
 
         TextView ccExmdChrgType = findViewById(R.id.ccExmdChrgTypeCd);
-        if(ccExmdChrgTypeCd) ccExmdChrgType.setText("대장암 검진 : 가능");
+        if (ccExmdChrgTypeCd) ccExmdChrgType.setText("대장암 검진 : 가능");
         else ccExmdChrgType.setText("대장암 검진 : 불가능");
 
         TextView cvxcaExmdChrgType = findViewById(R.id.cvxcaExmdChrgTypeCd);
-        if(cvxcaExmdChrgTypeCd) cvxcaExmdChrgType.setText("자궁경부암 검진 : 가능");
+        if (cvxcaExmdChrgTypeCd) cvxcaExmdChrgType.setText("자궁경부암 검진 : 가능");
         else cvxcaExmdChrgType.setText("자궁경부암 검진 : 불가능");
 
         TextView stmcaExmdChrgType = findViewById(R.id.stmcaExmdChrgTypeCd);
-        if(stmcaExmdChrgTypeCd) stmcaExmdChrgType.setText("위암 검진 : 가능");
+        if (stmcaExmdChrgTypeCd) stmcaExmdChrgType.setText("위암 검진 : 가능");
         else stmcaExmdChrgType.setText("위암 검진 : 불가능");
 
         TextView lvcaExmdChrgType = findViewById(R.id.lvcaExmdChrgTypeCd);
-        if(lvcaExmdChrgTypeCd) lvcaExmdChrgType.setText("간암 검진 : 가능");
+        if (lvcaExmdChrgTypeCd) lvcaExmdChrgType.setText("간암 검진 : 가능");
         else lvcaExmdChrgType.setText("간암 검진 : 불가능");
 
         TextView loc = findViewById(R.id.locAddr);
@@ -227,18 +242,19 @@ public class Hospital extends AppCompatActivity implements OnMapReadyCallback {
         TextView tel = findViewById(R.id.hmcTelNo);
         tel.setText(hmcTelNo);
 
-
+        TextView hospital_name = findViewById(R.id.hospital_name);
+        hospital_name.setText(ApplicationSetting.getHospitalName());
     }
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
 
-        Log.v("X좌표",String.valueOf(cxVl));
-        Log.v("Y좌표",String.valueOf(cyVl));
+        Log.v("X좌표", String.valueOf(cxVl));
+        Log.v("Y좌표", String.valueOf(cyVl));
 
         LatLng sydney;
-        if (cxVl == 0 && cyVl == 0){
+        if (cxVl == 0 && cyVl == 0) {
             sydney = performGeocoding(locAddr);
         } else {
             sydney = new LatLng(cxVl, cyVl);
@@ -251,19 +267,19 @@ public class Hospital extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     private LatLng performGeocoding(String addressString) {
-        Geocoder geocoder = new Geocoder(this,Locale.getDefault());
-
+        Geocoder geocoder = new Geocoder(this);
         try {
-            List<Address> addresses = geocoder.getFromLocationName(addressString, 1);
-            if (addresses != null && !addresses.isEmpty()) {
-                double latitude = addresses.get(0).getLatitude();
-                double longitude = addresses.get(0).getLongitude();
-                return new LatLng(latitude, longitude);
-            }
-        } catch (IOException e) {
-            Log.e("GeocodingActivity", "Error during geocoding", e);
-        }
+            List<Address> r = geocoder.getFromLocationName(addressString, 1);
+            double lat = r.get(0).getLatitude();
+            double lng = r.get(0).getLongitude();
+            Log.d("@@", "위도 : " + lat + ", 경도 : " + lng);
+            LatLng latLng = new LatLng(lat,lng);
 
+            return latLng;
+
+        } catch (Exception e) {
+            Log.d("@@", "주소변환 실패");
+        }
         return null;
     }
 }

@@ -6,6 +6,32 @@
     android:orientation="vertical"
     android:background="#FFFFFF">
 
+    <LinearLayout
+        android:id="@+id/loadingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:src="@drawable/loading2"
+            android:id="@+id/loadingImageView"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:gravity="center"
+            android:text="Loading..."
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+
     <RelativeLayout
 
         android:layout_width="307dp"
@@ -24,6 +50,7 @@
             android:src="@drawable/arrow"/>
 
         <TextView
+            android:id="@+id/hospital_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -57,6 +84,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/roundrect"/>
                 <TextView
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="          시행하는 검진   "
@@ -76,58 +104,58 @@
                     android:layout_marginTop="40dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginLeft="20dp">
-                        <TextView
-                            android:id="@+id/grenChrgTypeCd"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:textColor="#000000"></TextView>
+                    <TextView
+                        android:id="@+id/grenChrgTypeCd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:textColor="#000000"></TextView>
 
-                        <TextView
-                            android:id="@+id/mchkChrgTypeCd"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:textColor="#000000"></TextView>
+                    <TextView
+                        android:id="@+id/mchkChrgTypeCd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:textColor="#000000"></TextView>
 
-                        <TextView
-                            android:id="@+id/bcExmdChrgTypeCd"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:textColor="#000000"></TextView>
+                    <TextView
+                        android:id="@+id/bcExmdChrgTypeCd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:textColor="#000000"></TextView>
 
-                        <TextView
-                            android:id="@+id/ccExmdChrgTypeCd"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:textColor="#000000"></TextView>
+                    <TextView
+                        android:id="@+id/ccExmdChrgTypeCd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:textColor="#000000"></TextView>
 
 
-                        <TextView
-                            android:textColor="#000000"
-                            android:id="@+id/cvxcaExmdChrgTypeCd"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp">
-                        </TextView>
-                        <TextView
-                            android:textColor="#000000"
-                            android:id="@+id/stmcaExmdChrgTypeCd"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            >
-                        </TextView>
-                        <TextView
-                            android:textColor="#000000"
-                            android:id="@+id/lvcaExmdChrgTypeCd"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            >
-                        </TextView>
+                    <TextView
+                        android:textColor="#000000"
+                        android:id="@+id/cvxcaExmdChrgTypeCd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp">
+                    </TextView>
+                    <TextView
+                        android:textColor="#000000"
+                        android:id="@+id/stmcaExmdChrgTypeCd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        >
+                    </TextView>
+                    <TextView
+                        android:textColor="#000000"
+                        android:id="@+id/lvcaExmdChrgTypeCd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        >
+                    </TextView>
                 </LinearLayout>
             </RelativeLayout>
 

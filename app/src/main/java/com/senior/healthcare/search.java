@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,6 +34,10 @@ public class search extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search);
+        LinearLayout loadingLayout = findViewById(R.id.loadingLayout);
+
+        // 로딩 이미지 회전 애니메이션 적용
+        applyRotationAnimation();
 
         ImageView back_icon = findViewById(R.id.back_icon);
 
@@ -58,6 +64,7 @@ public class search extends Activity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            loadingLayout.setVisibility(View.GONE);
                             // 파싱된 결과를 사용하여 버튼 동적 생성
                             createButtons(hospitalList);
                         }
@@ -69,6 +76,14 @@ public class search extends Activity {
                 }
             }
         }).start();
+    }
+
+    private void applyRotationAnimation() {
+        ImageView loadingImageView = findViewById(R.id.loadingImageView);
+        RotateAnimation rotateAnimation = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        rotateAnimation.setDuration(1000);  // 회전 애니메이션의 지속 시간 (밀리초)
+        rotateAnimation.setRepeatCount(Animation.INFINITE);  // 무한 반복
+        loadingImageView.startAnimation(rotateAnimation);
     }
 
     private String getXmlFromUrl(String urlString) throws IOException {

@@ -30,9 +30,8 @@
             android:textStyle="bold"/>
     </LinearLayout>
 
-    <!-- 로딩 이미지를 아래에서부터 30dp의 빈 공간을 두고 위치하도록 조정 -->
     <ImageView
-        android:id="@+id/loadingImage"
+        android:id="@+id/loadingImageView"
         android:layout_width="52dp"
         android:layout_height="52dp"
         android:layout_marginTop="50dp"
