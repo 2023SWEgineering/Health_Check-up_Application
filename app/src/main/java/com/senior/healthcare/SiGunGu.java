@@ -164,11 +164,29 @@ public class SiGunGu extends Activity {
 
             String btnText = sigunguInfo.getSigunguNm();
 
+            if (btnText.equals("창원시 의창구")) {
+                btnText = "의창구";
+            } else if (btnText.equals("창원시 성산구")) {
+                btnText = "성산구";
+            } else if (btnText.equals("창원시 마산합포구")) {
+                btnText = "마산 합포구";
+            } else if (btnText.equals("창원시 마산회원구")) {
+                btnText = "마산 회원구";
+            } else if (btnText.equals("창원시 진해구")) {
+                btnText = "진해구";
+            } else if (btnText.equals("청주시 상당구")) {
+                btnText = "청주 상당구";
+            } else if (btnText.equals("청주시 서원구")) {
+                btnText = "청주 서원구";
+            } else if (btnText.equals("청주시 흥덕구")) {
+                btnText = "청주 흥덕구";
+            } else if (btnText.equals("청주시 청원구")) {
+                btnText = "청주 청원구";
+            }
+
             button.setText(btnText);
 
-            if (btnText.length() > 8) {
-                button.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
-            }
+            button.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
 
             button.setTypeface(null, Typeface.BOLD);
 
