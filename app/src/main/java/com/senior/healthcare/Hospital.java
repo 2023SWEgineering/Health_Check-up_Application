@@ -56,8 +56,10 @@ public class Hospital extends AppCompatActivity implements OnMapReadyCallback {
     private boolean stmcaExmdChrgTypeCd;
     private String locAddr;
 
+    private boolean isParsingDone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        isParsingDone = false;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hospital);
         LinearLayout loadingLayout = findViewById(R.id.loadingLayout);
@@ -85,13 +87,12 @@ public class Hospital extends AppCompatActivity implements OnMapReadyCallback {
         });
 
         // Thread 실행
-        new Thread(new Runnable() {
+        Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     // API에 GET 요청 보내고 XML 결과 받기
                     String xmlData = getXmlFromUrl(API_URL);
-
                     // XML 파싱하여 변수에 저장
                     parseXml(xmlData);
 
@@ -108,7 +109,15 @@ public class Hospital extends AppCompatActivity implements OnMapReadyCallback {
                     // 오류 처리
                 }
             }
-        }).start();
+        });
+        thread.start();
+        try {
+            thread.join(); // 쓰레드 작업이 완료될 때까지 기다림
+            // 여기에 쓰레드 작업이 완료된 후 수행할 작업 추가
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            // 오류 처리
+        }
     }
 
     private void applyRotationAnimation() {
@@ -202,6 +211,7 @@ public class Hospital extends AppCompatActivity implements OnMapReadyCallback {
             }
             eventType = parser.next();
         }
+        isParsingDone = true;
     }
 
     private void updateUI() {
@@ -248,10 +258,11 @@ public class Hospital extends AppCompatActivity implements OnMapReadyCallback {
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
-
-        Log.v("X좌표", String.valueOf(cxVl));
-        Log.v("Y좌표", String.valueOf(cyVl));
-
+        while (isParsingDone == false) {
+            Log.v("X좌표", String.valueOf(cxVl));
+            Log.v("Y좌표", String.valueOf(cyVl));
+            if (cxVl != 0 && cyVl != 0)break;
+        }
         LatLng sydney;
         if (cxVl == 0 && cyVl == 0) {
             sydney = performGeocoding(locAddr);
