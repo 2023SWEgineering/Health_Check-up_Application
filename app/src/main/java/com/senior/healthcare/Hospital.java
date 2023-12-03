@@ -245,34 +245,7 @@ public class Hospital extends AppCompatActivity implements OnMapReadyCallback {
 
         TextView hospital_name = findViewById(R.id.hospital_name);
 
-        String hospital_Name = ApplicationSetting.getHospitalName();
-
-        int length = hospital_Name.length(); //병원 이름 길이 확인
-
-        //병원 이름이 긴 경우 개행해서 출력하게 하기
-        if (length > 7) {
-            hospital_Name = hospital_Name.substring(0,7) + "\n" + hospital_Name.substring(8,length);
-        }
-        hospital_name.setText(hospital_Name);
-
-        grenChrgType.setTypeface(null, Typeface.BOLD);
-        grenChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
-        mchkChrgType.setTypeface(null, Typeface.BOLD);
-        mchkChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
-        bcExmdChrgType.setTypeface(null, Typeface.BOLD);
-        bcExmdChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
-        ccExmdChrgType.setTypeface(null, Typeface.BOLD);
-        ccExmdChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
-        cvxcaExmdChrgType.setTypeface(null, Typeface.BOLD);
-        cvxcaExmdChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
-        stmcaExmdChrgType.setTypeface(null, Typeface.BOLD);
-        stmcaExmdChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
-        lvcaExmdChrgType.setTypeface(null, Typeface.BOLD);
-        lvcaExmdChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
-        loc.setTypeface(null, Typeface.BOLD);
-        loc.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
-        tel.setTypeface(null, Typeface.BOLD);
-        tel.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+        hospital_name.setText(ApplicationSetting.getHospitalName());
 
     }
 
