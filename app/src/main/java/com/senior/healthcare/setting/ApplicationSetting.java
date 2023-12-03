@@ -86,4 +86,23 @@ public class ApplicationSetting {
     public static String getHospitalCode() {
         return hospitalCode;
     }
+    public static UserType getUserType(){
+        if (age >= 20 && age < 40){
+            if (gender.equals("여자"))return UserType.WOMEN20UP;//20~30대인 경우
+            return UserType.MEN20UP;
+        }
+        else if (age >= 40 && age < 50){
+            if (gender.equals("여자")){
+                return UserType.WOMEN40UP; //40대인 경우
+            }
+            else return UserType.MEN40UP;
+        }
+        else if(age >= 50){
+            if (gender.equals("여자"))return UserType.WOMEN50UP;// 50세 이상인 경우
+            return UserType.MEN50UP;
+        }
+        else{
+            return null;//잘못 입력된 경우
+        }
+    }
 }

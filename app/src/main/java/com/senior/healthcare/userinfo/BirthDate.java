@@ -1,4 +1,4 @@
-package com.senior.healthcare;
+package com.senior.healthcare.userinfo;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import com.senior.healthcare.R;
 import com.senior.healthcare.setting.ApplicationSetting;
 
 

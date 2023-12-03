@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.senior.healthcare.searching.SearchByLocation;
+import com.senior.healthcare.searching.SearchByUserInfo;
+import com.senior.healthcare.userinfo.BirthDate;
+
 public class Main extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +29,7 @@ public class Main extends Activity {
         checkup_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Main.class); // main.class 건강검진 리스트 창으로 연동해야함
+                Intent intent = new Intent(getApplicationContext(), SearchByUserInfo.class); // main.class 건강검진 리스트 창으로 연동해야함
                 startActivity(intent);
             }
         });
@@ -34,7 +38,7 @@ public class Main extends Activity {
         list_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Main.class); // main.class 건강검진 리스트 창으로 연동해야함
+                Intent intent = new Intent(getApplicationContext(), SearchByUserInfo.class); // main.class 건강검진 리스트 창으로 연동해야함
                 startActivity(intent);
             }
         });
@@ -44,7 +48,7 @@ public class Main extends Activity {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Search.class);
+                Intent intent = new Intent(getApplicationContext(), SearchByLocation.class);
                 startActivity(intent);
             }
         });
@@ -53,7 +57,7 @@ public class Main extends Activity {
         hospital_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Search.class);
+                Intent intent = new Intent(getApplicationContext(), SearchByLocation.class);
                 startActivity(intent);
             }
         });

@@ -30,28 +30,31 @@
             android:name=".EnterScreen"
             android:label="" />
         <activity
-            android:name=".BirthDate"
+            android:name=".userinfo.BirthDate"
             android:label="" />
         <activity
-            android:name=".Gender"
+            android:name=".userinfo.Gender"
             android:label="" />
         <activity
             android:name=".Main"
             android:label="" />
         <activity
-            android:name=".SiDo"
+            android:name=".userinfo.SiDo"
             android:label="" />
         <activity
-            android:name=".SiGunGu"
+            android:name=".userinfo.SiGunGu"
             android:label="" />
         <activity
-            android:name=".CheckData"
+            android:name=".userinfo.CheckData"
             android:label="" />
         <activity
-            android:name=".Search"
+            android:name=".searching.SearchByLocation"
             android:label="" />
         <activity
-            android:name=".Hospital"
+            android:name=".searching.SearchByUserInfo"
+            android:label="" />
+        <activity
+            android:name=".searching.Hospital"
             android:label="" />
     </application>
 

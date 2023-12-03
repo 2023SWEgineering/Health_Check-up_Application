@@ -1,4 +1,4 @@
-package com.senior.healthcare;
+package com.senior.healthcare.userinfo;
 
 import static android.widget.Toast.makeText;
 
@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.senior.healthcare.R;
 import com.senior.healthcare.setting.ApplicationSetting;
 
 public class Gender extends Activity {

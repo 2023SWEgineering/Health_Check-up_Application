@@ -1,4 +1,6 @@
-package com.senior.healthcare;
+package com.senior.healthcare.searching;
+
+import static com.senior.healthcare.setting.UserType.*;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,7 +13,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.senior.healthcare.HospitalInfo;
+import com.senior.healthcare.Main;
+import com.senior.healthcare.R;
 import com.senior.healthcare.setting.ApplicationSetting;
+import com.senior.healthcare.setting.UserType;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -26,16 +32,21 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import kotlin.jvm.internal.LocalVariableReference;
+
 public class SearchByUserInfo extends Activity {
     private static final String serviceKey = ApplicationSetting.getServiceKey();
     private static final String API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/HmcSearchService/getRegnHmcList?siDoCd=" + ApplicationSetting.getCityCode() + "&siGunGuCd=" + ApplicationSetting.getVillageCode() + "&numOfRows=300&ServiceKey=" + serviceKey;
-
+    private static boolean isParsingDone;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+
+        isParsingDone = false;
         setContentView(R.layout.search_health);
         LinearLayout loadingLayout = findViewById(R.id.loadingLayout);
 
+        UserType userType = ApplicationSetting.getUserType();
         applyRotationAnimation();
         ImageView back_icon = findViewById(R.id.back_icon);
         back_icon.setOnClickListener(new View.OnClickListener() {
@@ -47,7 +58,7 @@ public class SearchByUserInfo extends Activity {
         });
 
         // Thread 실행
-        new Thread(new Runnable() {
+        Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -55,10 +66,11 @@ public class SearchByUserInfo extends Activity {
                     String xmlData = getXmlFromUrl(API_URL);
 
                     // XML 파싱하여 hospitalName, hospitalCode 값 추출
-                    final List<HospitalInfo> hospitalList = parseXml(xmlData);
-
+                    final List<HospitalInfo> hospitalList = parseXml(xmlData, userType);
+                    Log.v("v", "리스트 생성");
                     // UI 업데이트는 메인 쓰레드에서 수행해야 합니다.
                     runOnUiThread(new Runnable() {
+
                         @Override
                         public void run() {
                             loadingLayout.setVisibility(View.GONE);
@@ -66,13 +78,15 @@ public class SearchByUserInfo extends Activity {
                             createButtons(hospitalList);
                         }
                     });
+
                 } catch (IOException | XmlPullParserException e) {
                     e.printStackTrace();
                     // 오류 처리
                     Log.e("search", "오류 발생");
                 }
             }
-        }).start();
+        });
+        thread.start();
     }
 
     private String getXmlFromUrl(String urlString) throws IOException {
@@ -106,7 +120,7 @@ public class SearchByUserInfo extends Activity {
         return result.toString();
     }
 
-    private List<HospitalInfo> parseXml(String xmlData) throws XmlPullParserException, IOException {
+    private List<HospitalInfo> parseXml(String xmlData, UserType userType) throws XmlPullParserException, IOException {
         List<HospitalInfo> hospitalList = new ArrayList<>();
         XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
         factory.setNamespaceAware(true);
@@ -115,22 +129,92 @@ public class SearchByUserInfo extends Activity {
 
         int eventType = parser.getEventType();
         while (eventType != XmlPullParser.END_DOCUMENT) {
+            HospitalInfo hospitalInfo = new HospitalInfo();
             if (eventType == XmlPullParser.START_TAG && "item".equals(parser.getName())) {
-                HospitalInfo hospitalInfo = new HospitalInfo();
                 while (eventType != XmlPullParser.END_TAG || !"item".equals(parser.getName())) {
-                    if (eventType == XmlPullParser.START_TAG && "hmcNm".equals(parser.getName())) {
-                        hospitalInfo.setHospitalName(parser.nextText());
-                    } else if (eventType == XmlPullParser.START_TAG && "hmcNo".equals(parser.getName())) {
-                        hospitalInfo.setHospitalCode(parser.nextText());
+                    if (eventType == XmlPullParser.START_TAG) {
+                        switch (parser.getName()) {
+                            case "hmcNm":
+                                hospitalInfo.setHospitalName(parser.nextText());
+                                break;
+                            case "hmcNo":
+                                hospitalInfo.setHospitalCode(parser.nextText());
+                                break;
+                            case "hmcTelNo":
+                                hospitalInfo.setHospitalCode( parser.nextText());
+                                break;
+                            case "bcExmdChrgTypeCd"://유방암
+                                hospitalInfo.setBcExmdChrgTypeCd("1".equals(parser.nextText()));
+                                break;
+                            case "ccExmdChrgTypeCd"://대장암
+                                hospitalInfo.setCcExmdChrgTypeCd("1".equals(parser.nextText()));
+                                break;
+                            case "cvxcaExmdChrgTypeCd"://자궁경부암
+                                hospitalInfo.setCvxcaExmdChrgTypeCd("1".equals(parser.nextText()));
+                                break;
+                            case "grenChrgTypeCd"://일반 검진
+                                hospitalInfo.setGrenChrgTypeCd("1".equals(parser.nextText()));
+                                break;
+                            case "lvcaExmdChrgTypeCd"://간암 검진
+                                hospitalInfo.setLvcaExmdChrgTypeCd("1".equals(parser.nextText()));
+                                break;
+//                            case "mchkChrgTypeCd"://구강 검진
+//                                hospitalInfo.setMchkChrgTypeCd("1".equals(parser.nextText()));
+//                                break;
+                            case "stmcaExmdChrgTypeCd"://위암 검진
+                                hospitalInfo.setStmcaExmdChrgTypeCd("1".equals(parser.nextText()));
+                                break;
+                        }
                     }
                     eventType = parser.next();
-                }
-                hospitalList.add(hospitalInfo);
+                }//파싱 종료
+                Log.v("v", "파싱 종료");
             }
             eventType = parser.next();
+            boolean isCanAdd = checkHospitalByUserType(userType,hospitalInfo);
+            if(isCanAdd)hospitalList.add(hospitalInfo);
         }
-
+        isParsingDone = true;
         return hospitalList;
+    }
+
+    private boolean checkHospitalByUserType(UserType userType, HospitalInfo hospitalInfo){
+        Log.v("checkType", userType.toString());
+        if (userType == MEN20UP){
+            if(hospitalInfo.isGrenChrgTypeCd())return true;
+            return false;
+        }
+        else if (userType == WOMEN20UP){
+            if (hospitalInfo.isCvxcaExmdChrgTypeCd() && hospitalInfo.isGrenChrgTypeCd())return true;
+            return false;
+        }
+        else if(userType == MEN40UP){
+            if (hospitalInfo.isLvcaExmdChrgTypeCd() && hospitalInfo.isGrenChrgTypeCd() &&
+                    hospitalInfo.isStmcaExmdChrgTypeCd()){
+                return true;
+            }
+            return false;
+        }
+        else if(userType == WOMEN40UP){
+            if (hospitalInfo.isLvcaExmdChrgTypeCd() && hospitalInfo.isGrenChrgTypeCd() &&
+                    hospitalInfo.isStmcaExmdChrgTypeCd() && hospitalInfo.isGrenChrgTypeCd() &&
+            hospitalInfo.isBcExmdChrgTypeCd())return true;
+            return false;
+        }
+        else if(userType == MEN50UP){
+            if (hospitalInfo.isLvcaExmdChrgTypeCd() && hospitalInfo.isGrenChrgTypeCd() &&
+                    hospitalInfo.isStmcaExmdChrgTypeCd() && hospitalInfo.isCcExmdChrgTypeCd()){
+                return true;
+            }
+            return false;
+        }
+        else if(userType == WOMEN50UP){
+            if (hospitalInfo.isLvcaExmdChrgTypeCd() && hospitalInfo.isGrenChrgTypeCd() &&
+                    hospitalInfo.isStmcaExmdChrgTypeCd() && hospitalInfo.isGrenChrgTypeCd() &&
+                    hospitalInfo.isBcExmdChrgTypeCd() && hospitalInfo.isCcExmdChrgTypeCd())return true;
+            return false;
+        }
+        return false;
     }
 
     private void createButtons(List<HospitalInfo> hospitalList) {

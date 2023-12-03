@@ -13,10 +13,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.senior.healthcare.HospitalInfo;
 import com.senior.healthcare.Main;
 import com.senior.healthcare.R;
 import com.senior.healthcare.setting.ApplicationSetting;
-
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -30,7 +30,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Search extends Activity {
+public class SearchByLocation extends Activity {
     private static final String serviceKey = ApplicationSetting.getServiceKey();
     private static final String API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/HmcSearchService/getRegnHmcList?siDoCd=" + ApplicationSetting.getCityCode() + "&siGunGuCd=" + ApplicationSetting.getVillageCode() + "&numOfRows=300&ServiceKey=" + serviceKey;
 
@@ -62,7 +62,7 @@ public class Search extends Activity {
                     String xmlData = getXmlFromUrl(API_URL);
 
                     // XML 파싱하여 hospitalName, hospitalCode 값 추출
-                    final List<HospitalInfo> hospitalList = parseXml(xmlData);
+                    List<HospitalInfo> hospitalList = parseXml(xmlData);
 
                     // UI 업데이트는 메인 쓰레드에서 수행해야 합니다.
                     runOnUiThread(new Runnable() {

@@ -8,6 +8,8 @@ import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 
+import com.senior.healthcare.userinfo.BirthDate;
+
 public class EnterScreen extends Activity {
     private static final long SPLASH_TIME_OUT = 1000; // 1초
 

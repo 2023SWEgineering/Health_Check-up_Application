@@ -1,4 +1,4 @@
-package com.senior.healthcare;
+package com.senior.healthcare.searching;
 
 import android.content.Intent;
 import android.location.Address;
@@ -22,6 +22,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.senior.healthcare.R;
 import com.senior.healthcare.setting.ApplicationSetting;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -81,7 +82,7 @@ public class Hospital extends AppCompatActivity implements OnMapReadyCallback {
         back_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Search.class);
+                Intent intent = new Intent(getApplicationContext(), SearchByLocation.class);
                 startActivity(intent);
             }
         });
