@@ -37,7 +37,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-public class Hospital extends AppCompatActivity implements OnMapReadyCallback {
+public class HospitalHealth extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
@@ -61,7 +61,7 @@ public class Hospital extends AppCompatActivity implements OnMapReadyCallback {
     protected void onCreate(Bundle savedInstanceState) {
         isParsingDone = false;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.hospital);
+        setContentView(R.layout.hospital_health);
         LinearLayout loadingLayout = findViewById(R.id.loadingLayout);
 
         // 로딩 이미지 회전 애니메이션 적용
@@ -81,7 +81,7 @@ public class Hospital extends AppCompatActivity implements OnMapReadyCallback {
         back_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SearchByLocation.class);
+                Intent intent = new Intent(getApplicationContext(), SearchByUserInfo.class);
                 startActivity(intent);
             }
         });
