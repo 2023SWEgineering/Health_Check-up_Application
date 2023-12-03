@@ -2,8 +2,10 @@ package com.senior.healthcare.searching;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -157,8 +159,18 @@ public class Search extends Activity {
 
         for (final HospitalInfo hospitalInfo : hospitalList) {
             Button button = new Button(this);
-            button.setText(hospitalInfo.getHospitalName());
 
+            String btnText = hospitalInfo.getHospitalName();
+            
+            //글자 길이에 따라 ... 붙이기
+            if (btnText.length() > 10) {
+                btnText = btnText.substring(0, 10) + "...";
+            }
+            button.setText(btnText);
+
+            //굵게, 글자 크기 조절
+            button.setTypeface(null, Typeface.BOLD);
+            button.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
             // 순서대로 이미지 선택
             button.setBackgroundResource(buttonBackgrounds[imageIndex]);
 

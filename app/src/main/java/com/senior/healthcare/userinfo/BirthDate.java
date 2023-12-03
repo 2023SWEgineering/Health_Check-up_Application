@@ -42,7 +42,8 @@ public class BirthDate extends Activity {
                 return view;
             }
         };
-        yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        yearAdapter.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
         Spinner yearSpinner = findViewById(R.id.spinner_year);
         yearSpinner.setAdapter(yearAdapter);
 

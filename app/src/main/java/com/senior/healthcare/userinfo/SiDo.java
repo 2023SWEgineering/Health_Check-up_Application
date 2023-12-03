@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -154,8 +155,14 @@ public class SiDo extends Activity {
             Button sido_button = findViewById(R.id.sido_button);
 
             button.setBackgroundResource(R.drawable.sido_sigungu_button);
-
+            
             String btnText = sidoInfo.getSidoNm();
+            
+            if (btnText.equals("세종특별자치시")) {
+                btnText = "세종시";
+            } else if (btnText.equals("제주특별자치도")) {
+                btnText = "제주도";
+            }
 
             button.setText(btnText);
 
@@ -165,6 +172,7 @@ public class SiDo extends Activity {
 
             params.setMargins(10, 10, 10, 10);
 
+            button.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
             button.setLayoutParams(params);
 
             button.setOnClickListener(new View.OnClickListener() {

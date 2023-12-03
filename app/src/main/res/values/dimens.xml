@@ -1,4 +1,4 @@
 <resources>
-    <dimen name="button_text_size">13sp</dimen>
-    <dimen name="button2_text_size">10sp</dimen>
+    <dimen name="button_text_size">18sp</dimen>
+    <dimen name="button2_text_size">15sp</dimen>
 </resources>
