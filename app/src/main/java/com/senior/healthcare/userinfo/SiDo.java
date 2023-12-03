@@ -15,6 +15,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.senior.healthcare.setting.ApplicationSetting;
+import com.senior.healthcare.userinfo.CheckData;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;

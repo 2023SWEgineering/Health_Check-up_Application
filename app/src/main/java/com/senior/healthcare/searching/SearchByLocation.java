@@ -1,4 +1,4 @@
-package com.senior.healthcare;
+package com.senior.healthcare.searching;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.senior.healthcare.Main;
+import com.senior.healthcare.R;
 import com.senior.healthcare.setting.ApplicationSetting;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -182,24 +184,3 @@ public class Search extends Activity {
     }
 }
 
-class HospitalInfo {
-
-    private String hospitalName;
-    private String hospitalCode;
-
-    public String getHospitalName() {
-        return hospitalName;
-    }
-
-    public String getHospitalCode() {
-        return hospitalCode;
-    }
-
-    public void setHospitalName(String hospitalName) {
-        this.hospitalName = hospitalName;
-    }
-
-    public void setHospitalCode(String hospitalCode) {
-        this.hospitalCode = hospitalCode;
-    }
-}
