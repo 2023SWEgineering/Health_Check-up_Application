@@ -174,8 +174,7 @@ public class SearchByLocation extends Activity {
             // 순서대로 이미지 선택
             button.setBackgroundResource(buttonBackgrounds[imageIndex]);
 
-            // 이미지 인덱스 업데이트
-            imageIndex = (imageIndex + 1) % buttonBackgrounds.length;
+
 
             //버튼 크기 조절
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(920, 185);
@@ -190,6 +189,9 @@ public class SearchByLocation extends Activity {
                 Intent intent = new Intent(getApplicationContext(), Hospital.class); // 변경된 클래스명으로 수정
                 startActivity(intent);
             });
+
+            // 이미지 인덱스 업데이트
+            imageIndex = (imageIndex + 1) % buttonBackgrounds.length;
 
             layout.addView(button);
         }
