@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.Toast;
 
 import com.senior.healthcare.R;
 import com.senior.healthcare.setting.ApplicationSetting;
@@ -77,8 +78,14 @@ public class SiGunGu extends Activity {
         sigungu_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), CheckData.class);
-                startActivity(intent);
+                if(ApplicationSetting.getVillage() == null) {
+                    Toast.makeText(getApplicationContext(),"시/군/구를 선택해주세요", Toast.LENGTH_SHORT).show();
+                }
+
+                else {
+                    Intent intent = new Intent(getApplicationContext(), CheckData.class);
+                    startActivity(intent);
+                }
             }
         });
     }

@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.Toast;
 
 import com.senior.healthcare.R;
 import com.senior.healthcare.setting.ApplicationSetting;
@@ -192,23 +193,29 @@ public class SiDo extends Activity {
                     ApplicationSetting.setCity(sidoInfo.getSidoNm());
                     ApplicationSetting.setCityCode(sidoInfo.getSidoCd());
 
-                    sido_button.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if(sidoInfo.getSidoNm().equals("세종특별자치시")) {
-                                Intent intent = new Intent(getApplicationContext(), CheckData.class);
-                                ApplicationSetting.setVillageCode("110");
-                                ApplicationSetting.setVillage("");
-                                startActivity(intent);
-                            }
-                            else {
-                                Intent intent = new Intent(getApplicationContext(), SiGunGu.class);
-                                startActivity(intent);
-                            }
+                }
+            });
 
+            sido_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(ApplicationSetting.getCity() == null) {
+                        Toast.makeText(getApplicationContext(),"시/도를 선택해주세요", Toast.LENGTH_SHORT).show();
+                    }
+
+                    else {
+                        Intent intent;
+                        if (ApplicationSetting.getCity().equals("세종특별자치시")) {
+                            intent = new Intent(getApplicationContext(), CheckData.class);
+                            ApplicationSetting.setVillageCode("110");
+                            ApplicationSetting.setVillage("");
                         }
-                    });
 
+                        else {
+                            intent = new Intent(getApplicationContext(), SiGunGu.class);
+                        }
+                        startActivity(intent);
+                    }
                 }
             });
 
