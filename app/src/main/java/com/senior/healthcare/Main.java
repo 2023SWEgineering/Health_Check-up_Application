@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 
 import com.senior.healthcare.searching.SearchByLocation;
 import com.senior.healthcare.searching.HealthCheckList;
+import com.senior.healthcare.setting.ApplicationSetting;
 import com.senior.healthcare.userinfo.BirthDate;
 
 public class Main extends Activity {
@@ -75,6 +76,14 @@ public class Main extends Activity {
         user_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ApplicationSetting.setVillage(null);
+                ApplicationSetting.setCity(null);
+                ApplicationSetting.setCityCode(null);
+                ApplicationSetting.setVillageCode(null);
+                ApplicationSetting.setAge(null);
+                ApplicationSetting.setHospitalCode(null);
+                ApplicationSetting.setHospitalName(null);
+                ApplicationSetting.setGender(null);
                 Intent intent = new Intent(getApplicationContext(), BirthDate.class);
                 startActivity(intent);
             }

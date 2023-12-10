@@ -34,13 +34,14 @@ import java.util.List;
 
 public class SiGunGu extends Activity {
 
-    private static final String API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/CodeService/getSiGunGuList?siDoCd="+ApplicationSetting.getCityCode()+"&ServiceKey="+ApplicationSetting.getServiceKey()+"&numOfRows=50";
+    private String API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/CodeService/getSiGunGuList?siDoCd="+ApplicationSetting.getCityCode()+"&ServiceKey="+ApplicationSetting.getServiceKey()+"&numOfRows=50";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sigungu);
         LinearLayout loadingLayout = findViewById(R.id.loadingLayout);
+
 
         // 로딩 이미지 회전 애니메이션 적용
         applyRotationAnimation();
@@ -54,7 +55,7 @@ public class SiGunGu extends Activity {
                     String xmlData = getXmlFromUrl(API_URL);
 
                     // XML 파싱하여 sidoNm, sidoCd 값 추출
-                    final List<SigunguInfo> sigunguList = parseXml(xmlData);
+                    List<SigunguInfo> sigunguList = parseXml(xmlData);
 
                     // UI 업데이트는 메인 쓰레드에서 수행해야 합니다.
                     runOnUiThread(new Runnable() {
@@ -165,7 +166,7 @@ public class SiGunGu extends Activity {
 
         int buttonCount = 0;
 
-        for (final SigunguInfo sigunguInfo : sigunguList) {
+        for (SigunguInfo sigunguInfo : sigunguList) {
             Button button = new Button(this);
 
             button.setBackgroundResource(R.drawable.sido_sigungu_button);

@@ -1,8 +1,7 @@
 package com.senior.healthcare.setting;
 
 public class ApplicationSetting {
-    private static int age;
-    private static String name;
+    private static Integer age;
     private static String gender;
     private static String city;
     private static String cityCode;
@@ -16,16 +15,8 @@ public class ApplicationSetting {
         return age;
     }
 
-    public static void setAge(int age) {
+    public static void setAge(Integer age) {
         ApplicationSetting.age = age;
-    }
-
-    public static String getName() {
-        return name;
-    }
-
-    public static void setName(String name) {
-        ApplicationSetting.name = name;
     }
 
     public static String getGender() {

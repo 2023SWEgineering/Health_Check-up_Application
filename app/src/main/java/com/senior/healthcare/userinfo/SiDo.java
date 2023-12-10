@@ -34,7 +34,7 @@ import java.util.List;
 
 public class SiDo extends Activity {
 
-    private static final String API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/CodeService/getSiDoList?ServiceKey="+ApplicationSetting.getServiceKey()+"&numOfRows=20";
+    private String API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/CodeService/getSiDoList?ServiceKey="+ApplicationSetting.getServiceKey()+"&numOfRows=20";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,7 @@ public class SiDo extends Activity {
                     String xmlData = getXmlFromUrl(API_URL);
 
                     // XML 파싱하여 sidoNm, sidoCd 값 추출
-                    final List<SidoInfo> sidoList = parseXml(xmlData);
+                    List<SidoInfo> sidoList = parseXml(xmlData);
 
                     // UI 업데이트는 메인 쓰레드에서 수행해야 합니다.
                     runOnUiThread(new Runnable() {
@@ -149,7 +149,7 @@ public class SiDo extends Activity {
 
         int buttonCount = 0;
 
-        for (final SidoInfo sidoInfo : sidoList) {
+        for (SidoInfo sidoInfo : sidoList) {
             // 버튼을 생성하여 TableRow에 추가
             if (sidoInfo.getSidoNm().equals("황해도")) continue;
             Button button = new Button(this);
@@ -202,7 +202,6 @@ public class SiDo extends Activity {
                     if(ApplicationSetting.getCity() == null) {
                         Toast.makeText(getApplicationContext(),"시/도를 선택해주세요", Toast.LENGTH_SHORT).show();
                     }
-
                     else {
                         Intent intent;
                         if (ApplicationSetting.getCity().equals("세종특별자치시")) {
