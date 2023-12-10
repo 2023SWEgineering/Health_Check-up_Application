@@ -277,23 +277,29 @@ public class Hospital extends AppCompatActivity implements OnMapReadyCallback {
         TextView hospital_name = findViewById(R.id.hospital_name);
         String hospitalNameText = ApplicationSetting.getHospitalName();
 
+        int totalLength = hospitalNameText.length();
+        int maxCharsPerLine = 12;
+        int maxLines = 2; // 원하는 최대 줄 수
 
-        if (hospitalNameText.length() > 14) {
-            StringBuilder formattedText = new StringBuilder();
-            int lineLength = 11;
+        StringBuilder formattedText = new StringBuilder();
+        int startIndex = 0;
+        int endIndex;
 
-            for (int i = 0; i < hospitalNameText.length(); i += lineLength) {
-                int endIndex = Math.min(i + lineLength, hospitalNameText.length());
-                formattedText.append(hospitalNameText, i, endIndex).append("\n");
+
+        while (startIndex < totalLength) {
+            endIndex = Math.min(startIndex + maxCharsPerLine, totalLength);
+            formattedText.append(hospitalNameText, startIndex, endIndex).append("\n");
+
+            startIndex = endIndex;
+
+            // 추가: 특정 길이 이상이면 최대 줄 수를 증가시킴
+            if (endIndex >= 24) {
+                maxLines++;
+                maxCharsPerLine = totalLength / maxLines;
             }
-
-            hospital_name.setText(formattedText.toString().trim());
-        }
-        else {
-            hospital_name.setText(hospitalNameText.toString());
         }
 
-
+        hospital_name.setText(formattedText.toString().trim());
 
     }
 
