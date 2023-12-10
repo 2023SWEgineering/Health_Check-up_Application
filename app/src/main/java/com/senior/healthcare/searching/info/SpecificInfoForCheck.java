@@ -2,11 +2,13 @@ package com.senior.healthcare.searching.info;
 
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
+import android.graphics.Typeface;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -255,17 +257,60 @@ public class SpecificInfoForCheck extends AppCompatActivity implements OnMapRead
         TextView tel = findViewById(R.id.hmcTelNo);
         tel.setText(hmcTelNo);
 
+        grenChrgType.setTypeface(null, Typeface.BOLD);
+        grenChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+        mchkChrgType.setTypeface(null, Typeface.BOLD);
+        mchkChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+        bcExmdChrgType.setTypeface(null, Typeface.BOLD);
+        bcExmdChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+        ccExmdChrgType.setTypeface(null, Typeface.BOLD);
+        ccExmdChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+        cvxcaExmdChrgType.setTypeface(null, Typeface.BOLD);
+        cvxcaExmdChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+        stmcaExmdChrgType.setTypeface(null, Typeface.BOLD);
+        stmcaExmdChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+        lvcaExmdChrgType.setTypeface(null, Typeface.BOLD);
+        lvcaExmdChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+        loc.setTypeface(null, Typeface.BOLD);
+        loc.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+        tel.setTypeface(null, Typeface.BOLD);
+        tel.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+
         TextView hospital_name = findViewById(R.id.hospital_name);
-        hospital_name.setText(ApplicationSetting.getHospitalName());
+        String hospitalNameText = ApplicationSetting.getHospitalName();
+
+        int totalLength = hospitalNameText.length();
+        int maxCharsPerLine = 12;
+        int maxLines = 2; // 원하는 최대 줄 수
+
+        StringBuilder formattedText = new StringBuilder();
+        int startIndex = 0;
+        int endIndex;
+
+
+        while (startIndex < totalLength) {
+            endIndex = Math.min(startIndex + maxCharsPerLine, totalLength);
+            formattedText.append(hospitalNameText, startIndex, endIndex).append("\n");
+
+            startIndex = endIndex;
+
+            // 추가: 특정 길이 이상이면 최대 줄 수를 증가시킴
+            if (endIndex >= 24) {
+                maxLines++;
+                maxCharsPerLine = totalLength / maxLines;
+            }
+        }
+
+        hospital_name.setText(formattedText.toString().trim());
         tel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"전화번호가 선택되었습니다.", Toast.LENGTH_SHORT).show();
                 Intent dialIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + hmcTelNo));
                 startActivity(dialIntent);
             }
         });
     }
-
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;

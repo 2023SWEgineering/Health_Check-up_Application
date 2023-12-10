@@ -1,11 +1,13 @@
 package com.senior.healthcare.searching.info;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -252,9 +254,46 @@ public class SpecificInfoForLocation extends AppCompatActivity implements OnMapR
         TextView tel = findViewById(R.id.hmcTelNo);
         tel.setText(hmcTelNo);
 
-        TextView hospital_name = findViewById(R.id.hospital_name);
+        TextView hospitalName = findViewById(R.id.hospital_name);
 
-        hospital_name.setText(ApplicationSetting.getHospitalName());
+        grenChrgType.setTypeface(null, Typeface.BOLD);
+        grenChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+        mchkChrgType.setTypeface(null, Typeface.BOLD);
+        mchkChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+        bcExmdChrgType.setTypeface(null, Typeface.BOLD);
+        bcExmdChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+        ccExmdChrgType.setTypeface(null, Typeface.BOLD);
+        ccExmdChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+        cvxcaExmdChrgType.setTypeface(null, Typeface.BOLD);
+        cvxcaExmdChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+        stmcaExmdChrgType.setTypeface(null, Typeface.BOLD);
+        stmcaExmdChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+        lvcaExmdChrgType.setTypeface(null, Typeface.BOLD);
+        lvcaExmdChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+        loc.setTypeface(null, Typeface.BOLD);
+        loc.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+        tel.setTypeface(null, Typeface.BOLD);
+        tel.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+
+        String hospitalNameText = ApplicationSetting.getHospitalName();
+
+
+        if (hospitalNameText.length() > 14) {
+            StringBuilder formattedText = new StringBuilder();
+            int lineLength = 11;
+
+            for (int i = 0; i < hospitalNameText.length(); i += lineLength) {
+                int endIndex = Math.min(i + lineLength, hospitalNameText.length());
+                formattedText.append(hospitalNameText, i, endIndex).append("\n");
+            }
+
+            hospitalName.setText(formattedText.toString().trim());
+        }
+        else {
+            hospitalName.setText(hospitalNameText.toString());
+        }
+
+        hospitalName.setText(ApplicationSetting.getHospitalName());
         tel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -262,6 +301,7 @@ public class SpecificInfoForLocation extends AppCompatActivity implements OnMapR
                 startActivity(dialIntent);
             }
         });
+
     }
 
     @Override
