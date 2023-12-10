@@ -1,12 +1,10 @@
-package com.senior.healthcare.searching;
+package com.senior.healthcare.searching.info;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -25,6 +23,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.senior.healthcare.R;
+import com.senior.healthcare.searching.SearchByUserInfo;
 import com.senior.healthcare.setting.ApplicationSetting;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -39,7 +38,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-public class Hospital extends AppCompatActivity implements OnMapReadyCallback {
+public class SpecificInfoForAge extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
@@ -63,7 +62,7 @@ public class Hospital extends AppCompatActivity implements OnMapReadyCallback {
     protected void onCreate(Bundle savedInstanceState) {
         isParsingDone = false;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.hospital);
+        setContentView(R.layout.hospital_health);
         LinearLayout loadingLayout = findViewById(R.id.loadingLayout);
 
         // 로딩 이미지 회전 애니메이션 적용
@@ -83,7 +82,7 @@ public class Hospital extends AppCompatActivity implements OnMapReadyCallback {
         back_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SearchByLocation.class);
+                Intent intent = new Intent(getApplicationContext(), SearchByUserInfo.class);
                 startActivity(intent);
             }
         });
@@ -254,9 +253,7 @@ public class Hospital extends AppCompatActivity implements OnMapReadyCallback {
         tel.setText(hmcTelNo);
 
         TextView hospital_name = findViewById(R.id.hospital_name);
-
         hospital_name.setText(ApplicationSetting.getHospitalName());
-
     }
 
     @Override

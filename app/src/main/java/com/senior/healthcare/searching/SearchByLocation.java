@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import com.senior.healthcare.HospitalInfo;
 import com.senior.healthcare.Main;
 import com.senior.healthcare.R;
+import com.senior.healthcare.searching.info.SpecificInfoForLocation;
 import com.senior.healthcare.setting.ApplicationSetting;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -186,7 +187,7 @@ public class SearchByLocation extends Activity {
                 ApplicationSetting.setHospitalName(hospitalInfo.getHospitalName());
                 ApplicationSetting.setHospitalCode(hospitalInfo.getHospitalCode());
 
-                Intent intent = new Intent(getApplicationContext(), Hospital.class); // 변경된 클래스명으로 수정
+                Intent intent = new Intent(getApplicationContext(), SpecificInfoForLocation.class); // 변경된 클래스명으로 수정
                 startActivity(intent);
             });
 

@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import com.senior.healthcare.HospitalInfo;
 import com.senior.healthcare.Main;
 import com.senior.healthcare.R;
+import com.senior.healthcare.searching.info.SpecificInfoForAge;
 import com.senior.healthcare.setting.ApplicationSetting;
 import com.senior.healthcare.setting.UserType;
 
@@ -33,8 +34,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
-import kotlin.jvm.internal.LocalVariableReference;
 
 public class SearchByUserInfo extends Activity {
     private static final String serviceKey = ApplicationSetting.getServiceKey();
@@ -258,7 +257,7 @@ public class SearchByUserInfo extends Activity {
                 ApplicationSetting.setHospitalName(hospitalInfo.getHospitalName());
                 ApplicationSetting.setHospitalCode(hospitalInfo.getHospitalCode());
 
-                Intent intent = new Intent(getApplicationContext(), HospitalHealth.class); // 변경된 클래스명으로 수정
+                Intent intent = new Intent(getApplicationContext(), SpecificInfoForAge.class); // 변경된 클래스명으로 수정
                 startActivity(intent);
             });
 

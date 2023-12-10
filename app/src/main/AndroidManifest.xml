@@ -54,10 +54,10 @@
             android:name=".searching.SearchByUserInfo"
             android:label="" />
         <activity
-            android:name=".searching.Hospital"
+            android:name=".searching.info.SpecificInfoForLocation"
             android:label="" />
         <activity
-            android:name=".searching.HospitalHealth"
+            android:name=".searching.info.SpecificInfoForAge"
             android:label="" />
     </application>
 

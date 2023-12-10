@@ -1,7 +1,5 @@
 package com.senior.healthcare;
 
-import com.senior.healthcare.searching.Hospital;
-
 public class HospitalInfo {
     private String hospitalName;
     private String hospitalCode;

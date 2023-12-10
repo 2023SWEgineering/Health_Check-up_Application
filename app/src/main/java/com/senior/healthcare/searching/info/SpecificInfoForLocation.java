@@ -1,4 +1,4 @@
-package com.senior.healthcare.searching;
+package com.senior.healthcare.searching.info;
 
 import android.content.Intent;
 import android.location.Address;
@@ -23,6 +23,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.senior.healthcare.R;
+import com.senior.healthcare.searching.SearchByLocation;
 import com.senior.healthcare.setting.ApplicationSetting;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -37,7 +38,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-public class HospitalHealth extends AppCompatActivity implements OnMapReadyCallback {
+public class SpecificInfoForLocation extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
@@ -61,7 +62,7 @@ public class HospitalHealth extends AppCompatActivity implements OnMapReadyCallb
     protected void onCreate(Bundle savedInstanceState) {
         isParsingDone = false;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.hospital_health);
+        setContentView(R.layout.hospital);
         LinearLayout loadingLayout = findViewById(R.id.loadingLayout);
 
         // 로딩 이미지 회전 애니메이션 적용
@@ -81,7 +82,7 @@ public class HospitalHealth extends AppCompatActivity implements OnMapReadyCallb
         back_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SearchByUserInfo.class);
+                Intent intent = new Intent(getApplicationContext(), SearchByLocation.class);
                 startActivity(intent);
             }
         });
@@ -252,7 +253,9 @@ public class HospitalHealth extends AppCompatActivity implements OnMapReadyCallb
         tel.setText(hmcTelNo);
 
         TextView hospital_name = findViewById(R.id.hospital_name);
+
         hospital_name.setText(ApplicationSetting.getHospitalName());
+
     }
 
     @Override
