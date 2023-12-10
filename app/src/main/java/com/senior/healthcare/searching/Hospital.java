@@ -247,15 +247,53 @@ public class Hospital extends AppCompatActivity implements OnMapReadyCallback {
         if (lvcaExmdChrgTypeCd) lvcaExmdChrgType.setText("간암 검진 : 가능");
         else lvcaExmdChrgType.setText("간암 검진 : 불가능");
 
+
+
         TextView loc = findViewById(R.id.locAddr);
         loc.setText(locAddr);
 
         TextView tel = findViewById(R.id.hmcTelNo);
         tel.setText(hmcTelNo);
 
-        TextView hospital_name = findViewById(R.id.hospital_name);
+        grenChrgType.setTypeface(null, Typeface.BOLD);
+        grenChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+        mchkChrgType.setTypeface(null, Typeface.BOLD);
+        mchkChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+        bcExmdChrgType.setTypeface(null, Typeface.BOLD);
+        bcExmdChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+        ccExmdChrgType.setTypeface(null, Typeface.BOLD);
+        ccExmdChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+        cvxcaExmdChrgType.setTypeface(null, Typeface.BOLD);
+        cvxcaExmdChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+        stmcaExmdChrgType.setTypeface(null, Typeface.BOLD);
+        stmcaExmdChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+        lvcaExmdChrgType.setTypeface(null, Typeface.BOLD);
+        lvcaExmdChrgType.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+        loc.setTypeface(null, Typeface.BOLD);
+        loc.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+        tel.setTypeface(null, Typeface.BOLD);
+        tel.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
 
-        hospital_name.setText(ApplicationSetting.getHospitalName());
+        TextView hospital_name = findViewById(R.id.hospital_name);
+        String hospitalNameText = ApplicationSetting.getHospitalName();
+
+
+        if (hospitalNameText.length() > 14) {
+            StringBuilder formattedText = new StringBuilder();
+            int lineLength = 11;
+
+            for (int i = 0; i < hospitalNameText.length(); i += lineLength) {
+                int endIndex = Math.min(i + lineLength, hospitalNameText.length());
+                formattedText.append(hospitalNameText, i, endIndex).append("\n");
+            }
+
+            hospital_name.setText(formattedText.toString().trim());
+        }
+        else {
+            hospital_name.setText(hospitalNameText.toString());
+        }
+
+
 
     }
 
