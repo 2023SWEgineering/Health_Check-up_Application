@@ -170,19 +170,61 @@ public class SiGunGu extends Activity {
             } else if (btnText.equals("창원시 성산구")) {
                 btnText = "성산구";
             } else if (btnText.equals("창원시 마산합포구")) {
-                btnText = "마산 합포구";
+                btnText = "마산합포구";
             } else if (btnText.equals("창원시 마산회원구")) {
-                btnText = "마산 회원구";
+                btnText = "마산회원구";
             } else if (btnText.equals("창원시 진해구")) {
                 btnText = "진해구";
             } else if (btnText.equals("청주시 상당구")) {
-                btnText = "청주 상당구";
+                btnText = "상당구";
             } else if (btnText.equals("청주시 서원구")) {
-                btnText = "청주 서원구";
+                btnText = "서원구";
             } else if (btnText.equals("청주시 흥덕구")) {
-                btnText = "청주 흥덕구";
+                btnText = "흥덕구";
             } else if (btnText.equals("청주시 청원구")) {
-                btnText = "청주 청원구";
+                btnText = "청원구";
+            } else if (btnText.equals("전주시 완산구")) {
+                btnText = "완산구";
+            } else if (btnText.equals("전주시 덕진구")) {
+                btnText = "덕진구";
+            } else if (btnText.equals("수원시 장안구")) {
+                btnText = "장안구";
+            } else if (btnText.equals("수원시 권선구")) {
+                btnText = "권선구";
+            } else if (btnText.equals("수원시 팔달구")) {
+                btnText = "팔달구";
+            } else if (btnText.equals("수원시 영통구")) {
+                btnText = "영통구";
+            } else if (btnText.equals("성남시 수정구")) {
+                btnText = "수정구";
+             } else if (btnText.equals("성남시 중원구")) {
+                btnText = "중원구";
+            } else if (btnText.equals("성남시 분당구")) {
+                btnText = "분당구";
+            } else if (btnText.equals("안양시 만안구")) {
+                btnText = "만안구";
+            } else if (btnText.equals("안양시 동안구")) {
+                btnText = "동안구";
+            } else if (btnText.equals("안산시 상록구")) {
+                btnText = "상록구";
+            } else if (btnText.equals("안산시 단원구")) {
+                btnText = "단원구";
+            } else if (btnText.equals("고양시 덕양구")) {
+                btnText = "덕양구";
+            } else if (btnText.equals("고양시 일산동구")) {
+                btnText = "일산동구";
+            } else if (btnText.equals("고양시 일산서구")) {
+                btnText = "일산서구";
+            } else if (btnText.equals("용인시 처인구")) {
+                btnText = "처인구";
+            } else if (btnText.equals("용인시 기흥구")) {
+                btnText = "기흥구";
+            } else if (btnText.equals("용인시 수지구")) {
+                btnText = "수지구";
+            } else if (btnText.equals("천안시 동남구")) {
+                btnText = "동남구";
+            } else if (btnText.equals("천안시 서북구")) {
+                btnText = "서북구";
             }
 
             button.setText(btnText);
