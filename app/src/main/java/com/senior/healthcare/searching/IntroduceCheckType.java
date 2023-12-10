@@ -1,4 +1,4 @@
-package com.senior.healthcare.searching.info;
+package com.senior.healthcare.searching;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,8 +37,7 @@ public class IntroduceCheckType extends AppCompatActivity {
         back_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), HealthCheckList.class);
-                startActivity(intent);
+                finish();
             }
         });
 

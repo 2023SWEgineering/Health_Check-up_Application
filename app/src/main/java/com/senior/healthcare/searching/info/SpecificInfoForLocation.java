@@ -3,6 +3,7 @@ package com.senior.healthcare.searching.info;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -82,8 +83,7 @@ public class SpecificInfoForLocation extends AppCompatActivity implements OnMapR
         back_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SearchByLocation.class);
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -255,7 +255,13 @@ public class SpecificInfoForLocation extends AppCompatActivity implements OnMapR
         TextView hospital_name = findViewById(R.id.hospital_name);
 
         hospital_name.setText(ApplicationSetting.getHospitalName());
-
+        tel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent dialIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + hmcTelNo));
+                startActivity(dialIntent);
+            }
+        });
     }
 
     @Override

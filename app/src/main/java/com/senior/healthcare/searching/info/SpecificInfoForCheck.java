@@ -1,8 +1,10 @@
 package com.senior.healthcare.searching.info;
 
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -38,7 +41,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-public class SpecificInfoForAge extends AppCompatActivity implements OnMapReadyCallback {
+//IntroduceCheckType에서 다음 을 누르면 나오는 뷰를 관여하는 클래스로 선택한 검진이 가능한 병원의 목록을 보여줌
+public class SpecificInfoForCheck extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
@@ -82,8 +86,7 @@ public class SpecificInfoForAge extends AppCompatActivity implements OnMapReadyC
         back_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SearchByUserInfo.class);
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -254,6 +257,13 @@ public class SpecificInfoForAge extends AppCompatActivity implements OnMapReadyC
 
         TextView hospital_name = findViewById(R.id.hospital_name);
         hospital_name.setText(ApplicationSetting.getHospitalName());
+        tel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent dialIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + hmcTelNo));
+                startActivity(dialIntent);
+            }
+        });
     }
 
     @Override

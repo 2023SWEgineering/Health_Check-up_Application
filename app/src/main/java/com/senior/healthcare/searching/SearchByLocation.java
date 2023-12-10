@@ -49,8 +49,7 @@ public class SearchByLocation extends Activity {
         back_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Main.class);
-                startActivity(intent);
+                finish();
             }
         });
 

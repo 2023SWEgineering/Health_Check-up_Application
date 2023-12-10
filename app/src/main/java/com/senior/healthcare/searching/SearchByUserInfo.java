@@ -1,7 +1,5 @@
 package com.senior.healthcare.searching;
 
-import static com.senior.healthcare.setting.UserType.*;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -18,7 +16,7 @@ import android.widget.LinearLayout;
 import com.senior.healthcare.HospitalInfo;
 import com.senior.healthcare.Main;
 import com.senior.healthcare.R;
-import com.senior.healthcare.searching.info.SpecificInfoForAge;
+import com.senior.healthcare.searching.info.SpecificInfoForCheck;
 import com.senior.healthcare.setting.ApplicationSetting;
 import com.senior.healthcare.setting.UserType;
 
@@ -43,6 +41,9 @@ public class SearchByUserInfo extends Activity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
+        Bundle bundle = getIntent().getExtras();
+        String checkType = bundle.getString("checkType");
+
         isParsingDone = false;
         setContentView(R.layout.search_health);
         LinearLayout loadingLayout = findViewById(R.id.loadingLayout);
@@ -53,8 +54,7 @@ public class SearchByUserInfo extends Activity {
         back_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Main.class);
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -67,7 +67,7 @@ public class SearchByUserInfo extends Activity {
                     String xmlData = getXmlFromUrl(API_URL);
 
                     // XML 파싱하여 hospitalName, hospitalCode 값 추출
-                    final List<HospitalInfo> hospitalList = parseXml(xmlData, userType);
+                    final List<HospitalInfo> hospitalList = parseXml(xmlData, checkType);
                     Log.v("v", "리스트 생성");
                     // UI 업데이트는 메인 쓰레드에서 수행해야 합니다.
                     runOnUiThread(new Runnable() {
@@ -121,7 +121,7 @@ public class SearchByUserInfo extends Activity {
         return result.toString();
     }
 
-    private List<HospitalInfo> parseXml(String xmlData, UserType userType) throws XmlPullParserException, IOException {
+    private List<HospitalInfo> parseXml(String xmlData, String checkType) throws XmlPullParserException, IOException {
         List<HospitalInfo> hospitalList = new ArrayList<>();
         XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
         factory.setNamespaceAware(true);
@@ -172,47 +172,43 @@ public class SearchByUserInfo extends Activity {
                 Log.v("v", "파싱 종료");
             }
             eventType = parser.next();
-            boolean isCanAdd = checkHospitalByUserType(userType,hospitalInfo);
+            boolean isCanAdd = checkHospitalByCheckType(checkType, hospitalInfo);
             if(isCanAdd)hospitalList.add(hospitalInfo);
         }
         isParsingDone = true;
         return hospitalList;
     }
 
-    private boolean checkHospitalByUserType(UserType userType, HospitalInfo hospitalInfo){
-        Log.v("checkType", userType.toString());
-        if (userType == MEN20UP){
-            if(hospitalInfo.isGrenChrgTypeCd())return true;
-            return false;
-        }
-        else if (userType == WOMEN20UP){
-            if (hospitalInfo.isCvxcaExmdChrgTypeCd() && hospitalInfo.isGrenChrgTypeCd())return true;
-            return false;
-        }
-        else if(userType == MEN40UP){
-            if (hospitalInfo.isLvcaExmdChrgTypeCd() && hospitalInfo.isGrenChrgTypeCd() &&
-                    hospitalInfo.isStmcaExmdChrgTypeCd()){
+    private boolean checkHospitalByCheckType(String checkType, HospitalInfo hospitalInfo) {
+        if (checkType.equals("일반")) {
+            if (hospitalInfo.isGrenChrgTypeCd()) {
                 return true;
             }
             return false;
-        }
-        else if(userType == WOMEN40UP){
-            if (hospitalInfo.isLvcaExmdChrgTypeCd() && hospitalInfo.isGrenChrgTypeCd() &&
-                    hospitalInfo.isStmcaExmdChrgTypeCd() && hospitalInfo.isGrenChrgTypeCd() &&
-            hospitalInfo.isBcExmdChrgTypeCd())return true;
+        } else if (checkType.equals("자궁경부암")) {
+            if (hospitalInfo.isCvxcaExmdChrgTypeCd() && hospitalInfo.isGrenChrgTypeCd())
+                return true;
+            return false;
+        } else if (checkType.equals("위암")) {
+            if (hospitalInfo.isStmcaExmdChrgTypeCd()) return true;
+            return false;
+        } else if (checkType.equals("간암")) {
+            if (hospitalInfo.isLvcaExmdChrgTypeCd()) return true;
             return false;
         }
-        else if(userType == MEN50UP){
-            if (hospitalInfo.isLvcaExmdChrgTypeCd() && hospitalInfo.isGrenChrgTypeCd() &&
-                    hospitalInfo.isStmcaExmdChrgTypeCd() && hospitalInfo.isCcExmdChrgTypeCd()){
+        else if(checkType.equals("유방암")){
+            if (hospitalInfo.isBcExmdChrgTypeCd())return true;
+            return false;
+        }
+        else if(checkType.equals("대장암")){
+            if (hospitalInfo.isCcExmdChrgTypeCd())return true;
+            return false;
+        }
+        else if(checkType.equals("폐암")){
+            if (hospitalInfo.isLvcaExmdChrgTypeCd() && hospitalInfo.isStmcaExmdChrgTypeCd()
+            && hospitalInfo.isCcExmdChrgTypeCd()){
                 return true;
             }
-            return false;
-        }
-        else if(userType == WOMEN50UP){
-            if (hospitalInfo.isLvcaExmdChrgTypeCd() && hospitalInfo.isGrenChrgTypeCd() &&
-                    hospitalInfo.isStmcaExmdChrgTypeCd() && hospitalInfo.isGrenChrgTypeCd() &&
-                    hospitalInfo.isBcExmdChrgTypeCd() && hospitalInfo.isCcExmdChrgTypeCd())return true;
             return false;
         }
         return false;
@@ -257,7 +253,7 @@ public class SearchByUserInfo extends Activity {
                 ApplicationSetting.setHospitalName(hospitalInfo.getHospitalName());
                 ApplicationSetting.setHospitalCode(hospitalInfo.getHospitalCode());
 
-                Intent intent = new Intent(getApplicationContext(), SpecificInfoForAge.class); // 변경된 클래스명으로 수정
+                Intent intent = new Intent(getApplicationContext(), SpecificInfoForCheck.class); // 변경된 클래스명으로 수정
                 startActivity(intent);
             });
 

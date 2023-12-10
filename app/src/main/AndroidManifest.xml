@@ -49,15 +49,20 @@
             android:label="" />
         <activity
             android:name=".searching.SearchByLocation"
+            android:label="" /><activity
+            android:name=".searching.SearchByUserInfo"
             android:label="" />
         <activity
-            android:name=".searching.SearchByUserInfo"
+            android:name=".searching.HealthCheckList"
             android:label="" />
         <activity
             android:name=".searching.info.SpecificInfoForLocation"
             android:label="" />
         <activity
-            android:name=".searching.info.SpecificInfoForAge"
+            android:name=".searching.IntroduceCheckType"
+            android:label="" />
+        <activity
+            android:name=".searching.info.SpecificInfoForCheck"
             android:label="" />
     </application>
 
