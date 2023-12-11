@@ -278,7 +278,7 @@ public class SpecificInfoForLocation extends AppCompatActivity implements OnMapR
         String hospitalNameText = ApplicationSetting.getHospitalName();
 
 
-        if (hospitalNameText.length() > 14) {
+        if (hospitalNameText.length() > 13) {
             StringBuilder formattedText = new StringBuilder();
             int lineLength = 11;
 
@@ -293,7 +293,6 @@ public class SpecificInfoForLocation extends AppCompatActivity implements OnMapR
             hospitalName.setText(hospitalNameText.toString());
         }
 
-        hospitalName.setText(ApplicationSetting.getHospitalName());
         tel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
