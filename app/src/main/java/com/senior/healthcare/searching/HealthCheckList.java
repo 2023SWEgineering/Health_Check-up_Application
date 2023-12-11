@@ -2,6 +2,7 @@ package com.senior.healthcare.searching;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -29,8 +30,8 @@ public class HealthCheckList extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.health_check_list);
         LinearLayout loadingLayout = findViewById(R.id.loadingLayout);
-
-        List<String> healthCheckTypeList = getHealthCheckType();
+        List<String> cannotList = new LinkedList<>();
+        List<String> healthCheckTypeList = getHealthCheckType(cannotList);
 
         // 로딩 이미지 회전 애니메이션 적용
         applyRotationAnimation();
@@ -52,67 +53,90 @@ public class HealthCheckList extends Activity {
                     public void run() {
                         loadingLayout.setVisibility(View.GONE);
                         // 파싱된 결과를 사용하여 버튼 동적 생성
-                        createButtons(healthCheckTypeList);
+                        createButtons(healthCheckTypeList, cannotList);
                     }
                 });
             }
         }).start();
     }
-    public List<String> getHealthCheckType(){
+    public List<String> getHealthCheckType(List<String> cannotList){
         UserType userType = ApplicationSetting.getUserType();
-        List<String> list = new LinkedList<>();
+        List<String> canList = new LinkedList<>();
         switch (userType){
             case MEN20UP :
-                list.add("일반");
+                canList.add("일반");
+                cannotList.add("간암");
+                cannotList.add("위암");
+                cannotList.add("대장암");
+                cannotList.add("폐암");
+                cannotList.add("자궁경부암");
+                cannotList.add("유방암");
                 break;
             case WOMEN20UP :
-                list.add("일반");
-                list.add("자궁경부암");
+                canList.add("일반");
+                cannotList.add("간암");
+                cannotList.add("위암");
+                cannotList.add("대장암");
+                cannotList.add("폐암");
+                canList.add("자궁경부암");
+                cannotList.add("유방암");
                 break;
             case MEN40UP :
-                list.add("일반");
-                list.add("위암");
-                list.add("간암");
+                canList.add("일반");
+                canList.add("간암");
+                canList.add("위암");
+                cannotList.add("대장암");
+                cannotList.add("폐암");
+                cannotList.add("자궁경부암");
+                cannotList.add("유방암");
                 break;
             case WOMEN40UP :
-                list.add("일반");
-                list.add("자궁경부암");
-                list.add("간암");
-                list.add("유방암");
-                list.add("위암");
+                canList.add("일반");
+                canList.add("간암");
+                canList.add("위암");
+                cannotList.add("대장암");
+                cannotList.add("폐암");
+                canList.add("자궁경부암");
+                canList.add("유방암");
                 break;
             case MEN50UP :
-                list.add("일반");
-                list.add("위암");
-                list.add("간암");
-                list.add("대장암");
+                canList.add("일반");
+                canList.add("간암");
+                canList.add("위암");
+                canList.add("대장암");
+                cannotList.add("폐암");
+                cannotList.add("자궁경부암");
+                cannotList.add("유방암");
                 break;
             case WOMEN50UP :
-                list.add("일반");
-                list.add("간암");
-                list.add("위암");
-                list.add("대장암");
-                list.add("자궁경부암");
-                list.add("유방암");
+                canList.add("일반");
+                canList.add("간암");
+                canList.add("위암");
+                canList.add("대장암");
+                cannotList.add("폐암");
+                canList.add("자궁경부암");
+                canList.add("유방암");
                 break;
             case MENLASTGEN :
-                list.add("일반");
-                list.add("간암");
-                list.add("위암");
-                list.add("대장암");
-                list.add("폐암");
+                canList.add("일반");
+                canList.add("간암");
+                canList.add("위암");
+                canList.add("대장암");
+                canList.add("폐암");
+                cannotList.add("자궁경부암");
+                cannotList.add("유방암");
                 break;
             case WOMENLASTGEN :
-                list.add("일반");
-                list.add("간암");
-                list.add("위암");
-                list.add("대장암");
-                list.add("폐암");
-                list.add("자궁경부암");
-                list.add("유방암");
+                canList.add("일반");
+                canList.add("간암");
+                canList.add("위암");
+                canList.add("대장암");
+                canList.add("폐암");
+                canList.add("자궁경부암");
+                canList.add("유방암");
                 break;
         }
-        return list;
+        return canList;
     }
 
     private void applyRotationAnimation() {
@@ -124,7 +148,7 @@ public class HealthCheckList extends Activity {
     }
 
 
-    private void createButtons(List<String> checkList) {
+    private void createButtons(List<String> checkList, List<String> cannotList) {
         LinearLayout layout = findViewById(R.id.search);
 
         // 이미지 리소스 배열
@@ -186,6 +210,34 @@ public class HealthCheckList extends Activity {
                 intent.putExtras(bundle);// SpecificInfoForCheck 에 어떤 건강검진의 병원 목록인지 전달
                 startActivity(intent);
             });
+
+            // 이미지 인덱스 업데이트
+            imageIndex = (imageIndex + 1) % buttonBackgrounds.length;
+
+            layout.addView(button);
+        }
+
+        for (int i = 0; i < cannotList.size(); i++) {
+            Button button = new Button(this);
+            String btnText = cannotList.get(i);
+
+            //글자 길이에 따라 ... 붙이기
+            if (btnText.length() > 10) {
+                btnText = btnText.substring(0, 10) + "...";
+            }
+            button.setText(btnText);
+
+            button.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+            button.setTextColor(Color.LTGRAY);
+            button.setBackgroundResource(R.drawable.btn_color1);
+
+
+
+            //버튼 크기 조절
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(920, 185);
+
+            params.setMargins(0, 0, 0, 40);
+            button.setLayoutParams(params);
 
             // 이미지 인덱스 업데이트
             imageIndex = (imageIndex + 1) % buttonBackgrounds.length;
