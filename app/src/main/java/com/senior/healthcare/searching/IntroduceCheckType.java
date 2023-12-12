@@ -26,6 +26,25 @@ public class IntroduceCheckType extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String checkType = bundle.getString("checkType");
         setContentView(R.layout.check_spec_type);
+
+        ImageView back_img = findViewById(R.id.back_img);
+
+        if (checkType.equals("자궁경부암")) {
+            back_img.setImageResource(R.drawable.cervical_cancer);
+        } else if (checkType.equals("유방암")) {
+            back_img.setImageResource(R.drawable.breast_cancer);
+        } else if (checkType.equals("대장암")) {
+            back_img.setImageResource(R.drawable.colon_cancer);
+        } else if (checkType.equals("간암")) {
+            back_img.setImageResource(R.drawable.liver_cancer);
+        } else if (checkType.equals("위암")) {
+            back_img.setImageResource(R.drawable.stomach_cancer);
+        } else if (checkType.equals("구강")) {
+            back_img.setImageResource(R.drawable.oral_examination);
+        } else if (checkType.equals("일반")) {
+            back_img.setImageResource(R.drawable.common_check);
+        }
+
         TextView textView = findViewById(R.id.textSpecByType);
         textView.setText(checkType + " 검진");
 

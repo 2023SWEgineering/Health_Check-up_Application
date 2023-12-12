@@ -53,13 +53,14 @@
             android:id="@+id/hospital_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
             android:text="병원 이름"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:gravity="center" />
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
@@ -105,7 +106,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="240dp"
                     android:orientation="vertical"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="50dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginLeft="20dp">
                     <TextView
