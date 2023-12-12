@@ -10,6 +10,9 @@ public class HospitalInfo {
     private boolean lvcaExmdChrgTypeCd;
     private boolean stmcaExmdChrgTypeCd;
 
+    private boolean mchkChrgTypeCd;//구강
+
+
     public HospitalInfo(){
         bcExmdChrgTypeCd = false;
         ccExmdChrgTypeCd = false;
@@ -17,6 +20,7 @@ public class HospitalInfo {
         grenChrgTypeCd = false;
         lvcaExmdChrgTypeCd = false;
         stmcaExmdChrgTypeCd = false;
+        mchkChrgTypeCd = false;
     }
     public boolean isBcExmdChrgTypeCd() {
         return bcExmdChrgTypeCd;
@@ -26,6 +30,13 @@ public class HospitalInfo {
         this.bcExmdChrgTypeCd = bcExmdChrgTypeCd;
     }
 
+    public boolean isMchkChrgTypeCd() {
+        return mchkChrgTypeCd;
+    }
+
+    public void setMchkChrgTypeCd(boolean mchkChrgTypeCd) {
+        this.mchkChrgTypeCd = mchkChrgTypeCd;
+    }
     public boolean isCcExmdChrgTypeCd() {
         return ccExmdChrgTypeCd;
     }

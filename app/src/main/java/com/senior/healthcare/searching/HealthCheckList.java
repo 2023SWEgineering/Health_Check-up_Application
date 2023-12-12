@@ -65,6 +65,7 @@ public class HealthCheckList extends Activity {
         switch (userType){
             case MEN20UP :
                 canList.add("일반");
+                canList.add("구강");
                 cannotList.add("간암");
                 cannotList.add("위암");
                 cannotList.add("대장암");
@@ -74,6 +75,7 @@ public class HealthCheckList extends Activity {
                 break;
             case WOMEN20UP :
                 canList.add("일반");
+                canList.add("구강");
                 cannotList.add("간암");
                 cannotList.add("위암");
                 cannotList.add("대장암");
@@ -83,6 +85,7 @@ public class HealthCheckList extends Activity {
                 break;
             case MEN40UP :
                 canList.add("일반");
+                canList.add("구강");
                 canList.add("간암");
                 canList.add("위암");
                 cannotList.add("대장암");
@@ -92,6 +95,7 @@ public class HealthCheckList extends Activity {
                 break;
             case WOMEN40UP :
                 canList.add("일반");
+                canList.add("구강");
                 canList.add("간암");
                 canList.add("위암");
                 cannotList.add("대장암");
@@ -101,6 +105,7 @@ public class HealthCheckList extends Activity {
                 break;
             case MEN50UP :
                 canList.add("일반");
+                canList.add("구강");
                 canList.add("간암");
                 canList.add("위암");
                 canList.add("대장암");
@@ -110,6 +115,7 @@ public class HealthCheckList extends Activity {
                 break;
             case WOMEN50UP :
                 canList.add("일반");
+                canList.add("구강");
                 canList.add("간암");
                 canList.add("위암");
                 canList.add("대장암");
@@ -119,6 +125,7 @@ public class HealthCheckList extends Activity {
                 break;
             case MENLASTGEN :
                 canList.add("일반");
+                canList.add("구강");
                 canList.add("간암");
                 canList.add("위암");
                 canList.add("대장암");
@@ -128,6 +135,7 @@ public class HealthCheckList extends Activity {
                 break;
             case WOMENLASTGEN :
                 canList.add("일반");
+                canList.add("구강");
                 canList.add("간암");
                 canList.add("위암");
                 canList.add("대장암");
@@ -187,6 +195,9 @@ public class HealthCheckList extends Activity {
                 Bundle bundle = new Bundle();
                 if (finalBtnText.equals("일반")){
                     bundle.putString("checkType", "일반");
+                }
+                else if(finalBtnText.equals("구강")){
+                    bundle.putString("checkType", "구강");
                 }
                 else if (finalBtnText.equals("자궁경부암")){
                     bundle.putString("checkType", "자궁경부암");

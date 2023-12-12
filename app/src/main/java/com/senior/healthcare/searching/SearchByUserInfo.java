@@ -68,7 +68,6 @@ public class SearchByUserInfo extends Activity {
 
                     // XML 파싱하여 hospitalName, hospitalCode 값 추출
                     final List<HospitalInfo> hospitalList = parseXml(xmlData, checkType);
-                    Log.v("v", "리스트 생성");
                     // UI 업데이트는 메인 쓰레드에서 수행해야 합니다.
                     runOnUiThread(new Runnable() {
 
@@ -159,9 +158,9 @@ public class SearchByUserInfo extends Activity {
                             case "lvcaExmdChrgTypeCd"://간암 검진
                                 hospitalInfo.setLvcaExmdChrgTypeCd("1".equals(parser.nextText()));
                                 break;
-//                            case "mchkChrgTypeCd"://구강 검진
-//                                hospitalInfo.setMchkChrgTypeCd("1".equals(parser.nextText()));
-//                                break;
+                            case "mchkChrgTypeCd"://구강 검진
+                                hospitalInfo.setMchkChrgTypeCd("1".equals(parser.nextText()));
+                                break;
                             case "stmcaExmdChrgTypeCd"://위암 검진
                                 hospitalInfo.setStmcaExmdChrgTypeCd("1".equals(parser.nextText()));
                                 break;
@@ -169,7 +168,6 @@ public class SearchByUserInfo extends Activity {
                     }
                     eventType = parser.next();
                 }//파싱 종료
-                Log.v("v", "파싱 종료");
             }
             eventType = parser.next();
             boolean isCanAdd = checkHospitalByCheckType(checkType, hospitalInfo);
@@ -185,8 +183,11 @@ public class SearchByUserInfo extends Activity {
                 return true;
             }
             return false;
+        } else if (checkType.equals("구강")) {
+            if(hospitalInfo.isMchkChrgTypeCd())return true;
+            return false;
         } else if (checkType.equals("자궁경부암")) {
-            if (hospitalInfo.isCvxcaExmdChrgTypeCd() && hospitalInfo.isGrenChrgTypeCd())
+            if (hospitalInfo.isCvxcaExmdChrgTypeCd())
                 return true;
             return false;
         } else if (checkType.equals("위암")) {

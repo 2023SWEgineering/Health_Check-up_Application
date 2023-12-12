@@ -32,6 +32,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import kotlin.jvm.internal.LocalVariableReference;
+
 public class SiDo extends Activity {
 
     private String API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/CodeService/getSiDoList?ServiceKey="+ApplicationSetting.getServiceKey()+"&numOfRows=20";
@@ -109,7 +111,6 @@ public class SiDo extends Activity {
                 }
             }
         }
-
         return result.toString();
     }
 
