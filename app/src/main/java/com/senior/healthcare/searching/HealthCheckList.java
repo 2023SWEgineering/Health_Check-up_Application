@@ -240,7 +240,7 @@ public class HealthCheckList extends Activity {
 
             button.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
             button.setTextColor(Color.LTGRAY);
-            button.setBackgroundResource(R.drawable.btn_color1);
+            button.setBackgroundResource(R.drawable.btn_color7);
 
 
 
