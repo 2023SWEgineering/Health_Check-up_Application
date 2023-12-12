@@ -35,13 +35,18 @@
     </RelativeLayout>
 
 
-
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1">
-    </LinearLayout>
 
+        <ImageView
+            android:id="@+id/back_img"
+            android:layout_width="match_parent"
+            android:layout_height="354dp"
+
+            android:src="@drawable/breast_cancer" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/nextButton"
@@ -50,10 +55,12 @@
         android:layout_gravity="center"
         android:layout_marginBottom="33dp"
         android:background="@drawable/solid_button"
-        android:text="다음"
+        android:text="해당 검진 시행 병원 찾기"
         android:textColor="#ffff"
         android:textSize="24dp"
         android:textStyle="bold" />
+
+
 
 
 </LinearLayout>
