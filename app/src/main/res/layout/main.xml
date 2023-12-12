@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical|right"
-            android:text="나만의\n건강검진\n리스트"
+            android:text="나만의\n건강검진\n목록"
             android:textSize="35dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="30dp"
