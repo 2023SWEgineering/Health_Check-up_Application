@@ -41,6 +41,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
 
 //IntroduceCheckType에서 다음 을 누르면 나오는 뷰를 관여하는 클래스로 선택한 검진이 가능한 병원의 목록을 보여줌
@@ -50,7 +51,7 @@ public class SpecificInfoForCheck extends AppCompatActivity implements OnMapRead
 
     private String serviceKey = ApplicationSetting.getServiceKey();
     private String hospitalName = ApplicationSetting.getHospitalName();
-    private String API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/HmcSearchService/getRegnHmcList?hmcNm=" + hospitalName + "&ServiceKey=" + serviceKey;
+    private String API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/HmcSearchService/getRegnHmcList?hmcNm=" + URLEncoder.encode(hospitalName) + "&siDoCd="+ApplicationSetting.getCityCode() + "&siGunGuCd=" + ApplicationSetting.getVillageCode() +"&ServiceKey=" + serviceKey;
 
     private double cxVl = 0;
     private double cyVl = 0;

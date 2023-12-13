@@ -39,6 +39,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
 
 public class SpecificInfoForLocation extends AppCompatActivity implements OnMapReadyCallback {
@@ -47,7 +48,7 @@ public class SpecificInfoForLocation extends AppCompatActivity implements OnMapR
 
     private String serviceKey = ApplicationSetting.getServiceKey();
     private String hospitalName = ApplicationSetting.getHospitalName();
-    private String API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/HmcSearchService/getRegnHmcList?hmcNm=" + hospitalName + "&ServiceKey=" + serviceKey;
+    private String API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/HmcSearchService/getRegnHmcList?hmcNm=" + URLEncoder.encode(hospitalName) + "&siDoCd="+ApplicationSetting.getCityCode() + "&siGunGuCd=" + ApplicationSetting.getVillageCode() +"&ServiceKey=" + serviceKey;
 
     private double cxVl = 0;
     private double cyVl = 0;
