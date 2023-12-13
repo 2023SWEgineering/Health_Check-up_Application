@@ -1,11 +1,9 @@
-package com.senior.healthcare.searching;
+package com.senior.healthcare.method.test;
 
-import com.senior.healthcare.setting.ApplicationSetting;
 import com.senior.healthcare.setting.UserType;
 
 import junit.framework.TestCase;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 

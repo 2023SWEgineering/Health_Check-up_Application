@@ -22,7 +22,6 @@ public class BirthDate extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.birthdate);
 
-        //2023 하드코딩 수정 필요
         int thisYear = 2023;
 
         //year
