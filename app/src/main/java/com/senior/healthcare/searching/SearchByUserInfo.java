@@ -35,12 +35,14 @@ import java.util.List;
 
 public class SearchByUserInfo extends Activity {
     private static final String serviceKey = ApplicationSetting.getServiceKey();
-    private static final String API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/HmcSearchService/getRegnHmcList?siDoCd=" + ApplicationSetting.getCityCode() + "&siGunGuCd=" + ApplicationSetting.getVillageCode() + "&numOfRows=300&ServiceKey=" + serviceKey;
+    private static String API_URL;
     private static boolean isParsingDone;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
+        API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/HmcSearchService/getRegnHmcList?siDoCd="
+                + ApplicationSetting.getCityCode() + "&siGunGuCd=" + ApplicationSetting.getVillageCode() + "&numOfRows=300&ServiceKey=" + serviceKey;
         Bundle bundle = getIntent().getExtras();
         String checkType = bundle.getString("checkType");
 
