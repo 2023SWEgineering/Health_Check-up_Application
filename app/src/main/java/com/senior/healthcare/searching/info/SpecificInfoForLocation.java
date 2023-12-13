@@ -321,7 +321,7 @@ public class SpecificInfoForLocation extends AppCompatActivity implements OnMapR
                 .position(sydney)
                 .title(ApplicationSetting.getHospitalName()));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
     }
 
     private LatLng performGeocoding(String addressString) {
