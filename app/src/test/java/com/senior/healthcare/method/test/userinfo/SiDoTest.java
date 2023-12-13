@@ -1,4 +1,4 @@
-package com.senior.healthcare.userinfo;
+package com.senior.healthcare.method.test.userinfo;
 
 import com.senior.healthcare.setting.ApplicationSetting;
 
@@ -11,8 +11,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class SiGunGuTest extends TestCase {
-    private static final String API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/CodeService/getSiGunGuList?siDoCd="+ 11 +"&ServiceKey="+ApplicationSetting.getServiceKey()+"&numOfRows=50";
+public class SiDoTest extends TestCase {
+    private static final String API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/CodeService/getSiDoList?ServiceKey="+ ApplicationSetting.getServiceKey()+"&numOfRows=20";
     public void testOnCreate() throws IOException {
         String xmlData = getXmlFromUrl(API_URL);
         System.out.println("xmlData = " + xmlData);

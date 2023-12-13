@@ -1,4 +1,4 @@
-package com.senior.healthcare.searching;
+package com.senior.healthcare.method.test.userinfo;
 
 import com.senior.healthcare.setting.ApplicationSetting;
 
@@ -11,9 +11,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class SearchByLocationTest extends TestCase {
-
-    private static final String API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/HmcSearchService/getRegnHmcList?siDoCd=" + 11 + "&siGunGuCd=" + 110 + "&numOfRows=300&ServiceKey=" + ApplicationSetting.getServiceKey();
+public class SiGunGuTest extends TestCase {
+    private static final String API_URL = "http://openapi1.nhis.or.kr/openapi/service/rest/CodeService/getSiGunGuList?siDoCd="+ 11 +"&ServiceKey="+ApplicationSetting.getServiceKey()+"&numOfRows=50";
     public void testOnCreate() throws IOException {
         String xmlData = getXmlFromUrl(API_URL);
         System.out.println("xmlData = " + xmlData);
@@ -49,4 +48,5 @@ public class SearchByLocationTest extends TestCase {
 
         return result.toString();
     }
+
 }

@@ -1,4 +1,4 @@
-package com.senior.healthcare.searching.info;
+package com.senior.healthcare.method.test.info;
 
 import com.senior.healthcare.setting.ApplicationSetting;
 
