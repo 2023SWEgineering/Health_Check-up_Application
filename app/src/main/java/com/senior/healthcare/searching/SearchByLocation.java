@@ -31,7 +31,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchByLocation extends Activity {
+
+public class SearchByLocation extends SearchBy {
     private static final String serviceKey = ApplicationSetting.getServiceKey();
     private static String API_URL;
 
@@ -42,10 +43,7 @@ public class SearchByLocation extends Activity {
                 + ApplicationSetting.getCityCode() + "&siGunGuCd=" + ApplicationSetting.getVillageCode() + "&numOfRows=300&ServiceKey=" + serviceKey;
         setContentView(R.layout.search);
         LinearLayout loadingLayout = findViewById(R.id.loadingLayout);
-
-        // 로딩 이미지 회전 애니메이션 적용
         applyRotationAnimation();
-
         ImageView back_icon = findViewById(R.id.back_icon);
 
         back_icon.setOnClickListener(new View.OnClickListener() {
@@ -83,46 +81,7 @@ public class SearchByLocation extends Activity {
             }
         }).start();
     }
-
-    private void applyRotationAnimation() {
-        ImageView loadingImageView = findViewById(R.id.loadingImageView);
-        RotateAnimation rotateAnimation = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        rotateAnimation.setDuration(1000);  // 회전 애니메이션의 지속 시간 (밀리초)
-        rotateAnimation.setRepeatCount(Animation.INFINITE);  // 무한 반복
-        loadingImageView.startAnimation(rotateAnimation);
-    }
-
-    private String getXmlFromUrl(String urlString) throws IOException {
-        StringBuilder result = new StringBuilder();
-        HttpURLConnection urlConnection = null;
-        BufferedReader reader = null;
-
-        try {
-            URL url = new URL(urlString);
-            urlConnection = (HttpURLConnection) url.openConnection();
-            InputStream in = urlConnection.getInputStream();
-
-            reader = new BufferedReader(new InputStreamReader(in));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                result.append(line);
-            }
-        } finally {
-            if (urlConnection != null) {
-                urlConnection.disconnect();
-            }
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        return result.toString();
-    }
-
+    
     private List<HospitalInfo> parseXml(String xmlData) throws XmlPullParserException, IOException {
         List<HospitalInfo> hospitalList = new ArrayList<>();
         XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
@@ -150,7 +109,8 @@ public class SearchByLocation extends Activity {
         return hospitalList;
     }
 
-    private void createButtons(List<HospitalInfo> hospitalList) {
+    @Override
+    protected void createButtons(List<HospitalInfo> hospitalList) {
         LinearLayout layout = findViewById(R.id.search);
 
         // 이미지 리소스 배열
@@ -161,7 +121,6 @@ public class SearchByLocation extends Activity {
 
         for (final HospitalInfo hospitalInfo : hospitalList) {
             Button button = new Button(this);
-
             String btnText = hospitalInfo.getHospitalName();
             
             //글자 길이에 따라 ... 붙이기
@@ -173,10 +132,9 @@ public class SearchByLocation extends Activity {
             //굵게, 글자 크기 조절
             button.setTypeface(null, Typeface.BOLD);
             button.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.button_text_size));
+
             // 순서대로 이미지 선택
             button.setBackgroundResource(buttonBackgrounds[imageIndex]);
-
-
 
             //버튼 크기 조절
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(920, 185);
