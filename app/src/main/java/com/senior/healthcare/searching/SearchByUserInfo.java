@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.senior.healthcare.HospitalInfo;
-import com.senior.healthcare.Main;
 import com.senior.healthcare.R;
 import com.senior.healthcare.searching.info.SpecificInfoForCheck;
 import com.senior.healthcare.setting.ApplicationSetting;
@@ -33,10 +32,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchByUserInfo extends Activity {
+public class SearchByUserInfo extends SearchBy {
     private static final String serviceKey = ApplicationSetting.getServiceKey();
     private static String API_URL;
-    private static boolean isParsingDone;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -46,11 +44,8 @@ public class SearchByUserInfo extends Activity {
         Bundle bundle = getIntent().getExtras();
         String checkType = bundle.getString("checkType");
 
-        isParsingDone = false;
         setContentView(R.layout.search_health);
         LinearLayout loadingLayout = findViewById(R.id.loadingLayout);
-
-        UserType userType = ApplicationSetting.getUserType();
         applyRotationAnimation();
         ImageView back_icon = findViewById(R.id.back_icon);
         back_icon.setOnClickListener(new View.OnClickListener() {
@@ -89,37 +84,6 @@ public class SearchByUserInfo extends Activity {
             }
         });
         thread.start();
-    }
-
-    private String getXmlFromUrl(String urlString) throws IOException {
-        StringBuilder result = new StringBuilder();
-        HttpURLConnection urlConnection = null;
-        BufferedReader reader = null;
-
-        try {
-            URL url = new URL(urlString);
-            urlConnection = (HttpURLConnection) url.openConnection();
-            InputStream in = urlConnection.getInputStream();
-
-            reader = new BufferedReader(new InputStreamReader(in));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                result.append(line);
-            }
-        } finally {
-            if (urlConnection != null) {
-                urlConnection.disconnect();
-            }
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        return result.toString();
     }
 
     private List<HospitalInfo> parseXml(String xmlData, String checkType) throws XmlPullParserException, IOException {
@@ -175,7 +139,6 @@ public class SearchByUserInfo extends Activity {
             boolean isCanAdd = checkHospitalByCheckType(checkType, hospitalInfo);
             if(isCanAdd)hospitalList.add(hospitalInfo);
         }
-        isParsingDone = true;
         return hospitalList;
     }
 
@@ -217,7 +180,8 @@ public class SearchByUserInfo extends Activity {
         return false;
     }
 
-    private void createButtons(List<HospitalInfo> hospitalList) {
+    @Override
+    protected void createButtons(List<HospitalInfo> hospitalList) {
         LinearLayout layout = findViewById(R.id.search_health);
 
         // 이미지 리소스 배열
@@ -262,14 +226,6 @@ public class SearchByUserInfo extends Activity {
 
             layout.addView(button);
         }
-    }
-
-    private void applyRotationAnimation() {
-        ImageView loadingImageView = findViewById(R.id.loadingImageView);
-        RotateAnimation rotateAnimation = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        rotateAnimation.setDuration(1000);  // 회전 애니메이션의 지속 시간 (밀리초)
-        rotateAnimation.setRepeatCount(Animation.INFINITE);  // 무한 반복
-        loadingImageView.startAnimation(rotateAnimation);
     }
 }
 
